@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="fw-bold text-secondary mb-3">⏱️ QUẢN LÝ ĐIỂM DANH CHUYÊN CẦN</h2>
+<p class="text-muted">Điều chỉnh trực tiếp số buổi vắng của người học tại đây. Hệ thống sẽ tự động tính toán cập nhật tình trạng học vụ.</p>
+<form action="{{ url_for('attendance') }}" method="POST" class="card shadow-sm border-0">
+    <div class="card-body px-0 py-0">
+        <table class="table table-striped align-middle mb-0">
+            <thead class="table-dark">
+                <tr><th>Mã ID</th><th>Họ và tên</th><th>Khóa học</th><th>Số buổi vắng hiện tại</th><th style="width: 250px;">Điều chỉnh số buổi vắng</th></tr>
+            </thead>
+            <tbody>
+                {% for s in students %}
+                <tr>
+                    <td>{{ s.id }}</td><td class="fw-bold text-secondary">{{ s.ho_va_ten }}</td><td>{{ s.khoa_hoc }}</td><td>{{ s.diem_danh }} buổi</td>
+                    <td><input type="number" name="absent_{{ s.id }}" value="{{ s.diem_danh }}" min="0" max="20" class="form-control form-control-sm w-50"></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer text-end"><button type="submit" class="btn btn-warning fw-bold text-dark">Chốt sổ điểm danh & Quét học vụ</button></div>
+</form>
+{% endblock %}

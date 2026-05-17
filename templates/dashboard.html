@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div style="background: linear-gradient(to right, #F27024, #f69d3c); color: white; border-radius: 15px; padding: 25px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(242, 112, 36, 0.3);">
+    <h3 class="fw-bold mb-2"><i class="fa-solid fa-hand-sparkles me-2"></i>Chào mừng trở lại, Cán bộ quản lý!</h3>
+    <p class="mb-0 fs-5">Hôm nay là một ngày tuyệt vời để theo dõi tiến độ học tập của các học viên FPT Antech.</p>
+</div>
+
+<h4 class="mb-4 text-secondary fw-bold">📊 TỔNG QUAN TRẠNG THÁI HỆ THỐNG</h4>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card text-white h-100 position-relative overflow-hidden" style="background: linear-gradient(135deg, #4e73df 0%, #224abe 100%); border: none; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
+            <div class="card-body p-4">
+                <h6 class="text-uppercase fw-bold mb-2 opacity-75">Tổng số người học</h6>
+                <h2 class="display-4 fw-bold mb-0">{{ total }}</h2>
+            </div>
+            <i class="fa-solid fa-users" style="position: absolute; right: 20px; top: 20px; opacity: 0.15; font-size: 4rem;"></i>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card text-dark h-100 position-relative overflow-hidden" style="background: linear-gradient(135deg, #f6c23e 0%, #dda20a 100%); border: none; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
+            <div class="card-body p-4">
+                <h6 class="text-uppercase fw-bold mb-2 opacity-75 text-dark">Học viên đang bị cảnh báo</h6>
+                <h2 class="display-4 fw-bold mb-0 text-dark">{{ warnings }}</h2>
+            </div>
+            <i class="fa-solid fa-triangle-exclamation" style="position: absolute; right: 20px; top: 20px; opacity: 0.15; font-size: 4rem; color: #000;"></i>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card text-white h-100 position-relative overflow-hidden" style="background: linear-gradient(135deg, #e74a3b 0%, #be2617 100%); border: none; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
+            <div class="card-body p-4">
+                <h6 class="text-uppercase fw-bold mb-2 opacity-75">Học viên bị buộc thôi học</h6>
+                <h2 class="display-4 fw-bold mb-0">{{ expelled }}</h2>
+            </div>
+            <i class="fa-solid fa-user-slash" style="position: absolute; right: 20px; top: 20px; opacity: 0.15; font-size: 4rem;"></i>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-12">
+        <div class="card shadow-sm border-0 border-start border-primary border-4">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="fw-bold mb-1">Cập nhật điểm danh hôm nay?</h5>
+                    <p class="text-muted mb-0">Hệ thống sẽ tự động tính toán lại tình trạng học vụ ngay sau khi bạn chốt sổ.</p>
+                </div>
+                <a href="{{ url_for('attendance') }}" class="btn btn-outline-primary fw-bold px-4">Đến trang Điểm danh</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

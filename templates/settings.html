@@ -1,0 +1,145 @@
+ {% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="fw-bold text-secondary mb-4">⚙️ CÀI ĐẶT CẤU HÌNH HỆ THỐNG</h2>
+
+
+
+<div class="row">
+
+    <div class="col-md-6 mb-4">
+
+        <div class="card shadow-sm border-0 h-100">
+
+            <div class="card-header bg-dark text-white fw-bold">
+
+                <i class="fa-solid fa-database me-2"></i>Cấu hình Cơ sở dữ liệu
+
+            </div>
+
+            <div class="card-body">
+
+                <p class="mb-2"><strong>Trạng thái kết nối:</strong> <span class="badge bg-success">Đang hoạt động (Online)</span></p>
+
+                <p class="mb-2"><strong>Phương thức lưu trữ:</strong> Tệp tin phẳng (JSON Flat File)</p>
+
+                <p class="mb-2"><strong>Đường dẫn tệp gốc:</strong> <code>data/nguoi_hoc.json</code></p>
+
+                <hr>
+
+                <p class="text-muted small mb-0">
+
+                    <i class="fa-solid fa-circle-info me-1"></i> Toàn bộ thông tin lý lịch người học, số buổi nghỉ điểm danh và trạng thái cảnh báo học vụ được lưu trữ đồng bộ trong một file duy nhất để tối ưu hóa bộ nhớ server.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="col-md-6 mb-4">
+
+        <div class="card shadow-sm border-0 h-100">
+
+            <div class="card-header bg-dark text-white fw-bold">
+
+                <i class="fa-solid fa-gavel me-2"></i>Quy chế Đào tạo & Chuyên cần
+
+            </div>
+
+            <div class="card-body">
+
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                        Số buổi nghỉ tối đa cho phép
+
+                        <span class="badge bg-secondary rounded-pill">2 buổi</span>
+
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center text-warning fw-bold">
+
+                        Mức kích hoạt Cảnh báo học vụ
+
+                        <span class="badge bg-warning text-dark rounded-pill">&ge; 3 buổi</span>
+
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center text-danger fw-bold">
+
+                        Mức xử lý Buộc thôi học (Đuổi học)
+
+                        <span class="badge bg-danger rounded-pill">&ge; 5 buổi</span>
+
+                    </li>
+
+                </ul>
+
+                <hr>
+
+                <p class="text-muted small mb-0">
+
+                    <i class="fa-solid fa-bell me-1"></i> Hệ thống tự động quét và áp dụng quy chế này ngay khi cán bộ quản lý thực hiện chốt sổ tại tab Điểm danh chuyên cần.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<div class="card shadow-sm border-0 mb-4">
+
+    <div class="card-header bg-dark text-white fw-bold">
+
+        <i class="fa-solid fa-circle-info me-2"></i>Thông tin Nền tảng Ứng dụng
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="row text-center py-2">
+
+            <div class="col-md-4">
+
+                <h6 class="text-muted mb-1">Phiên bản hiện tại</h6>
+
+                <p class="fw-bold text-primary mb-0">v1.0.0 (Sẵn sàng Production)</p>
+
+            </div>
+
+            <div class="col-md-4" style="border-left: 1px solid #dee2e6; border-right: 1px solid #dee2e6;">
+
+                <h6 class="text-muted mb-1">Công nghệ Backend</h6>
+
+                <p class="fw-bold text-success mb-0">Flask 3.0.2 (Python)</p>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <h6 class="text-muted mb-1">Hệ thống vận hành</h6>
+
+                <p class="fw-bold mb-0" style="color: #F27024;">FPT ANTECH PORTAL</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="fw-bold text-danger mb-4">⚠️ DANH SÁCH XỬ LÝ CẢNH BÁO HỌC VỤ</h2>
+<div class="card shadow-sm border-0">
+    <div class="card-body px-0 py-0">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-dark">
+                <tr><th>Mã ID</th><th>Họ và tên</th><th>Khóa học</th><th>Số điện thoại</th><th>Số buổi vắng</th><th>Tình trạng học vụ</th></tr>
+            </thead>
+            <tbody>
+                {% for s in students %}
+                <tr class="{% if s.canh_bao == 'Đuổi học' %}table-danger{% else %}table-warning{% endif %}">
+                    <td><strong>{{ s.id }}</strong></td><td class="fw-bold">{{ s.ho_va_ten }}</td><td>{{ s.khoa_hoc }}</td><td>{{ s.so_dien_thoai }}</td>
+                    <td class="fw-bold text-danger">{{ s.diem_danh }} buổi</td>
+                    <td><span class="badge {% if s.canh_bao == 'Cảnh báo' %}bg-warning text-dark{% else %}bg-danger{% endif %}">{{ s.canh_bao }}</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
