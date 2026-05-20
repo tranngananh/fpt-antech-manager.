@@ -1,17 +1,26 @@
 {% extends 'base.html' %}
+{% block title %}Quản lý Người học{% endblock %}
+{% block page_title %}Danh sách Người học{% endblock %}
+
 {% block content %}
+
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="text-secondary fw-bold">👥 QUẢN LÝ THÔNG TIN NGƯỜI HỌC</h2>
-    <button class="btn text-white" style="background-color: #F27024;" data-bs-toggle="modal" data-bs-target="#addModal">
-        <i class="fa-solid fa-user-plus me-2"></i>Thêm người học mới
+    <h2 class="text-secondary fw-bold"><i class="fa-solid fa-users me-2"></i>QUẢN LÝ NGƯỜI HỌC</h2>
+    <button class="btn text-white fw-bold shadow-sm" style="background-color: #F27024;"
+            data-bs-toggle="modal" data-bs-target="#addModal">
+        <i class="fa-solid fa-user-plus me-2"></i>Thêm học viên mới
     </button>
 </div>
 
 <form action="{{ url_for('students') }}" method="GET" class="row g-2 mb-4">
-    <div class="col-md-6">
+    <div class="col-md-7">
         <div class="input-group shadow-sm">
-            <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
-            <input type="text" name="tu_khoa" value="{{ tu_khoa }}" class="form-control border-start-0 ps-0" placeholder="Tìm nhanh theo Mã ID, Họ tên, Số điện thoại, Khóa học...">
+            <span class="input-group-text bg-white border-end-0">
+                <i class="fa-solid fa-magnifying-glass text-muted"></i>
+            </span>
+            <input type="text" name="tu_khoa" value="{{ tu_khoa }}"
+                   class="form-control border-start-0 ps-0"
+                   placeholder="Tìm theo ID, Họ tên, SĐT, Email, Khóa học...">
         </div>
     </div>
     <div class="col-md-2">
@@ -19,114 +28,201 @@
     </div>
     {% if tu_khoa %}
     <div class="col-md-2">
-        <a href="{{ url_for('students') }}" class="btn btn-outline-secondary w-100 shadow-sm">Xóa bộ lọc</a>
+        <a href="{{ url_for('students') }}" class="btn btn-outline-secondary w-100 shadow-sm">
+            <i class="fa-solid fa-filter-circle-xmark me-2"></i>Xóa lọc
+        </a>
     </div>
     {% endif %}
 </form>
 
-<div class="card shadow-sm border-0">
-    <div class="card-body px-0 py-0">
-        <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="table-dark">
+<div class="card shadow-sm border-0" style="border-radius: 12px;">
+    <div class="card-body p-0">
+        <div class="table-responsive" style="max-height: 65vh; overflow-y: auto;">
+            <table class="table table-hover align-middle mb-0 text-nowrap">
+                <thead class="table-light sticky-top">
                     <tr>
-                        <th class="ps-3">Mã ID</th>
+                        <th class="ps-4">Mã</th>
                         <th>Họ và tên</th>
-                        <th>Số điện thoại</th>
                         <th>Giới tính</th>
                         <th>Dân tộc</th>
-                        <th>Ngày sinh</th>
                         <th>Email</th>
                         <th>Khóa học</th>
+                        <th>Lớp học</th>
+                        <th>Số điện thoại</th>
                         <th>Địa chỉ</th>
-                        <th class="text-center">Số buổi vắng</th>
-                        <th>Tình trạng học vụ</th>
+                        <th class="text-center">Vắng</th>
+                        <th>Tình trạng</th>
                         <th class="text-center">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for s in students %}
-                    <tr class="{% if s.canh_bao == 'Đuổi học' %}table-danger{% elif s.canh_bao == 'Cảnh báo' %}table-warning{% endif %}">
-                        <td class="ps-3"><strong>{{ s.id }}</strong></td>
-                        <td class="fw-bold text-secondary">{{ s.ho_va_ten }}</td>
-                        <td>{{ s.so_dien_thoai }}</td>
-                        <td><span class="badge bg-light text-dark border">{{ s.gioi_tinh }}</span></td>
-                        <td>{{ s.dan_toc }}</td>
-                        <td>{{ s.ngay_sinh }}</td>
-                        <td>{{ s.email }}</td>
-                        <td><span class="badge bg-secondary text-white">{{ s.khoa_hoc }}</span></td>
-                        <td>{{ s.dia_chi }}</td>
-                        <td class="text-center fw-bold text-danger">{{ s.diem_danh }}</td>
+                    <tr>
+                        <td class="ps-4 fw-bold text-secondary">{{ s.id }}</td>
+                        <td class="fw-bold text-dark">{{ s.ho_va_ten }}</td>
+                        <td>{{ s.gioi_tinh }}</td>
+                        <td>{{ s.dan_toc if s.dan_toc and s.dan_toc != '-' else 'Kinh' }}</td>
                         <td>
-                            <span class="badge {% if s.canh_bao == 'Không' %}bg-success{% elif s.canh_bao == 'Cảnh báo' %}bg-warning text-dark{% else %}bg-danger{% endif %}">
-                                {{ s.canh_bao }}
-                            </span>
+                            {% if s.email and s.email != '-' %}
+                                <small>{{ s.email }}</small>
+                            {% else %}
+                                <span class="text-muted fst-italic small">N/A</span>
+                            {% endif %}
+                        </td>
+                        <td><span class="badge bg-secondary">{{ s.khoa_hoc }}</span></td>
+                        <td>
+                            {% if s.lop_hoc and s.lop_hoc != '-' %}
+                                <span class="badge bg-info text-dark">{{ s.lop_hoc }}</span>
+                            {% else %}
+                                <span class="text-muted small">-</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ s.so_dien_thoai }}</td>
+                        <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis;">
+                            {% if s.dia_chi and s.dia_chi != '-' %}
+                                <small title="{{ s.dia_chi }}">{{ s.dia_chi }}</small>
+                            {% else %}
+                                <span class="text-muted fst-italic small">Chưa cập nhật</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center fw-bold
+                            {% if s.so_ngay_vang >= 5 %}text-danger
+                            {% elif s.so_ngay_vang >= 3 %}text-warning
+                            {% else %}text-success{% endif %}">
+                            {{ s.so_ngay_vang }}
+                        </td>
+                        <td>
+                            {% if s.canh_bao == 'Không' %}
+                                <span class="badge bg-success">Bình thường</span>
+                            {% elif s.canh_bao == 'Cảnh báo học tập' %}
+                                <span class="badge bg-warning text-dark">Cảnh báo học tập</span>
+                            {% else %}
+                                <span class="badge bg-danger">Cảnh báo nghỉ học</span>
+                            {% endif %}
                         </td>
                         <td class="text-center">
-                            <button class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#editModal{{ s.id }}"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <a href="{{ url_for('delete_student', student_id=s.id) }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa người học này?')"><i class="fa-solid fa-trash"></i></a>
+                            <button class="btn btn-sm btn-outline-primary me-1"
+                                onclick="openEdit(
+                                    '{{ s.id }}',
+                                    '{{ s.ho_va_ten | replace('\'', '\\\'') }}',
+                                    '{{ s.so_dien_thoai }}',
+                                    '{{ s.gioi_tinh }}',
+                                    '{{ s.dan_toc }}',
+                                    '{{ s.ngay_sinh }}',
+                                    '{{ s.email }}',
+                                    '{{ s.khoa_hoc }}',
+                                    '{{ s.lop_hoc }}',
+                                    '{{ s.dia_chi | replace('\'', '\\\'') }}'
+                                )">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            
+                            {% if current_role == 'admin' %}
+                            <a href="{{ url_for('delete_student', student_id=s.id) }}"
+                               class="btn btn-sm btn-outline-danger"
+                               onclick="return confirm('Xóa học viên {{ s.ho_va_ten }} khỏi hệ thống?')">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                            {% endif %}
                         </td>
                     </tr>
-
-                    <div class="modal fade" id="editModal{{ s.id }}" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <form action="{{ url_for('students') }}" method="POST" class="modal-content">
-                                <input type="hidden" name="action" value="update">
-                                <input type="hidden" name="id" value="{{ s.id }}">
-                                <div class="modal-header bg-primary text-white">
-                                    <h5 class="modal-title">Cập nhật người học {{ s.id }}</h5>
-                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="mb-3"><label class="fw-bold">Họ và tên *</label><input type="text" name="ho_va_ten" value="{{ s.ho_va_ten }}" class="form-control" required></div>
-                                    <div class="mb-3"><label class="fw-bold">Số điện thoại *</label><input type="text" name="so_dien_thoai" value="{{ s.so_dien_thoai }}" class="form-control" required></div>
-                                    <div class="mb-3">
-                                        <label class="fw-bold">Giới tính *</label>
-                                        <select name="gioi_tinh" class="form-select">
-                                            <option {% if s.gioi_tinh == 'Nam' %}selected{% endif %}>Nam</option>
-                                            <option {% if s.gioi_tinh == 'Nữ' %}selected{% endif %}>Nữ</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3"><label class="fw-bold">Dân tộc</label><input type="text" name="dan_toc" value="{{ s.dan_toc }}" class="form-control"></div>
-                                    <div class="mb-3"><label class="fw-bold">Ngày sinh</label><input type="text" name="ngay_sinh" value="{{ s.ngay_sinh }}" class="form-control" placeholder="DD/MM/YYYY"></div>
-                                    <div class="mb-3"><label class="fw-bold">Email</label><input type="email" name="email" value="{{ s.email }}" class="form-control"></div>
-                                    <div class="mb-3"><label class="fw-bold">Khóa học *</label><input type="text" name="khoa_hoc" value="{{ s.khoa_hoc }}" class="form-control" required></div>
-                                    <div class="mb-3"><label class="fw-bold">Địa chỉ</label><textarea name="dia_chi" class="form-control" rows="2">{{ s.dia_chi }}</textarea></div>
-                                </div>
-                                <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button><button type="submit" class="btn btn-primary">Cập nhật</button></div>
-                            </form>
-                        </div>
-                    </div>
+                    {% else %}
+                    <tr>
+                        <td colspan="12" class="text-center text-muted py-5">
+                            <i class="fa-solid fa-users-slash fa-2x mb-2 d-block"></i>
+                            Không tìm thấy học viên nào
+                        </td>
+                    </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
-</div>
-
-<div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <form action="{{ url_for('students') }}" method="POST" class="modal-content">
-            <input type="hidden" name="action" value="create">
-            <div class="modal-header text-white" style="background-color: #F27024;">
-                <h5 class="modal-title">Thêm người học mới</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3"><label class="fw-bold">Họ và tên *</label><input type="text" name="ho_va_ten" class="form-control" placeholder="Nhập họ và tên" required></div>
-                <div class="mb-3"><label class="fw-bold">Số điện thoại *</label><input type="text" name="so_dien_thoai" class="form-control" placeholder="Nhập số điện thoại" required></div>
-                <div class="mb-3">
-                    <label class="fw-bold">Giới tính *</label>
-                    <select name="gioi_tinh" class="form-select"><option>Nam</option><option>Nữ</option></select>
-                </div>
-                <div class="mb-3"><label class="fw-bold">Dân tộc</label><input type="text" name="dan_toc" value="Kinh" class="form-control"></div>
-                <div class="mb-3"><label class="fw-bold">Ngày sinh</label><input type="text" name="ngay_sinh" placeholder="Ví dụ: 15/04/2003" class="form-control"></div>
-                <div class="mb-3"><label class="fw-bold">Email</label><input type="email" name="email" class="form-control" placeholder="example@gmail.com"></div>
-                <div class="mb-3"><label class="fw-bold">Khóa học *</label><input type="text" name="khoa_hoc" placeholder="Ví dụ: full-stack" class="form-control" required></div>
-                <div class="mb-3"><label class="fw-bold">Địa chỉ</label><textarea name="dia_chi" class="form-control" rows="2" placeholder="Nhập địa chỉ hiện tại"></textarea></div>
-            </div>
-            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button><button type="submit" class="btn text-white" style="background-color: #F27024;">Xác nhận thêm</button></div>
-        </form>
+    <div class="card-footer text-muted bg-white text-end" style="border-radius: 0 0 12px 12px;">
+        Tổng cộng: <strong>{{ students | length }}</strong> học viên
     </div>
 </div>
+
+<div class="modal fade" id="addModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header text-white" style="background-color: #F27024;">
+                <h5 class="modal-title fw-bold"><i class="fa-solid fa-user-plus me-2"></i>Thêm học viên mới</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST" action="{{ url_for('students') }}">
+                <input type="hidden" name="action" value="create">
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-12"><label class="form-label fw-bold">Họ và tên *</label><input type="text" name="ho_va_ten" class="form-control" required autofocus></div>
+                        <div class="col-md-6"><label class="form-label fw-bold">Số điện thoại *</label><input type="text" name="so_dien_thoai" class="form-control" required></div>
+                        <div class="col-md-6"><label class="form-label fw-bold">Email</label><input type="email" name="email" class="form-control"></div>
+                        <div class="col-md-4"><label class="form-label fw-bold">Giới tính *</label><select name="gioi_tinh" class="form-select"><option>Nam</option><option>Nữ</option></select></div>
+                        <div class="col-md-4"><label class="form-label fw-bold">Dân tộc</label><input type="text" name="dan_toc" value="Kinh" class="form-control"></div>
+                        <div class="col-md-4"><label class="form-label fw-bold">Ngày sinh</label><input type="date" name="ngay_sinh" class="form-control"></div>
+                        <div class="col-md-6"><label class="form-label fw-bold">Khóa học *</label><input type="text" name="khoa_hoc" class="form-control" required></div>
+                        <div class="col-md-6"><label class="form-label fw-bold">Lớp học</label><input type="text" name="lop_hoc" class="form-control"></div>
+                        <div class="col-12"><label class="form-label fw-bold">Địa chỉ</label><input type="text" name="dia_chi" class="form-control"></div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn text-white fw-bold px-4" style="background-color: #F27024;">Thêm mới</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title fw-bold"><i class="fa-solid fa-pen-to-square me-2"></i>Cập nhật thông tin</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST" action="{{ url_for('students') }}">
+                <input type="hidden" name="action" value="update">
+                <input type="hidden" name="id" id="edit-id">
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-12"><label class="form-label fw-bold">Họ và tên *</label><input type="text" name="ho_va_ten" id="edit-ten" class="form-control" required></div>
+                        <div class="col-md-6"><label class="form-label fw-bold">Số điện thoại *</label><input type="text" name="so_dien_thoai" id="edit-sdt" class="form-control" required></div>
+                        <div class="col-md-6"><label class="form-label fw-bold">Email</label><input type="email" name="email" id="edit-email" class="form-control"></div>
+                        <div class="col-md-4"><label class="form-label fw-bold">Giới tính *</label><select name="gioi_tinh" id="edit-gt" class="form-select"><option value="Nam">Nam</option><option value="Nữ">Nữ</option></select></div>
+                        <div class="col-md-4"><label class="form-label fw-bold">Dân tộc</label><input type="text" name="dan_toc" id="edit-dantoc" class="form-control"></div>
+                        <div class="col-md-4"><label class="form-label fw-bold">Ngày sinh</label><input type="text" name="ngay_sinh" id="edit-ns" class="form-control" placeholder="DD/MM/YYYY"></div>
+                        <div class="col-md-6"><label class="form-label fw-bold">Khóa học *</label><input type="text" name="khoa_hoc" id="edit-kh" class="form-control" required></div>
+                        <div class="col-md-6"><label class="form-label fw-bold">Lớp học</label><input type="text" name="lop_hoc" id="edit-lop" class="form-control"></div>
+                        <div class="col-12"><label class="form-label fw-bold">Địa chỉ</label><input type="text" name="dia_chi" id="edit-dc" class="form-control"></div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary fw-bold px-4">Lưu thay đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function openEdit(id, ten, sdt, gt, dantoc, ns, email, kh, lop, dc) {
+    document.getElementById('edit-id').value     = id;
+    document.getElementById('edit-ten').value    = ten;
+    document.getElementById('edit-sdt').value    = sdt;
+    document.getElementById('edit-email').value  = (email === '-') ? '' : email;
+    document.getElementById('edit-lop').value    = (lop === '-') ? '' : lop;
+    document.getElementById('edit-dc').value     = (dc === '-') ? '' : dc;
+    document.getElementById('edit-dantoc').value = (dantoc === '-') ? 'Kinh' : dantoc;
+    document.getElementById('edit-ns').value     = ns;
+    document.getElementById('edit-kh').value     = kh;
+
+    const gtSel = document.getElementById('edit-gt');
+    for (let o of gtSel.options) o.selected = (o.value === gt);
+
+    new bootstrap.Modal(document.getElementById('editModal')).show();
+}
+</script>
+
 {% endblock %}

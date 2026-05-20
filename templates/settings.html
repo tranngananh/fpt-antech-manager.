@@ -1,145 +1,203 @@
- {% extends 'base.html' %}
-
+{% extends 'base.html' %}
 {% block content %}
 
-<h2 class="fw-bold text-secondary mb-4">⚙️ CÀI ĐẶT CẤU HÌNH HỆ THỐNG</h2>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-secondary fw-bold"><i class="fa-solid fa-gear me-2"></i>CÀI ĐẶT HỆ THỐNG</h2>
+</div>
 
-
-
-<div class="row">
-
-    <div class="col-md-6 mb-4">
-
-        <div class="card shadow-sm border-0 h-100">
-
-            <div class="card-header bg-dark text-white fw-bold">
-
-                <i class="fa-solid fa-database me-2"></i>Cấu hình Cơ sở dữ liệu
-
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show shadow-sm" role="alert">
+                <i class="fa-solid fa-circle-info me-2"></i>{{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
 
+<div class="row g-4">
+    <div class="col-xl-4 col-lg-5">
+        <div class="card shadow-sm border-0 h-100" style="border-radius: 12px;">
+            <div class="card-header bg-dark text-white fw-bold" style="border-radius: 12px 12px 0 0;">
+                <i class="fa-solid fa-user-shield me-2"></i>Hồ sơ của bạn
+            </div>
             <div class="card-body">
-
-                <p class="mb-2"><strong>Trạng thái kết nối:</strong> <span class="badge bg-success">Đang hoạt động (Online)</span></p>
-
-                <p class="mb-2"><strong>Phương thức lưu trữ:</strong> Tệp tin phẳng (JSON Flat File)</p>
-
-                <p class="mb-2"><strong>Đường dẫn tệp gốc:</strong> <code>data/nguoi_hoc.json</code></p>
-
-                <hr>
-
-                <p class="text-muted small mb-0">
-
-                    <i class="fa-solid fa-circle-info me-1"></i> Toàn bộ thông tin lý lịch người học, số buổi nghỉ điểm danh và trạng thái cảnh báo học vụ được lưu trữ đồng bộ trong một file duy nhất để tối ưu hóa bộ nhớ server.
-
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-    <div class="col-md-6 mb-4">
-
-        <div class="card shadow-sm border-0 h-100">
-
-            <div class="card-header bg-dark text-white fw-bold">
-
-                <i class="fa-solid fa-gavel me-2"></i>Quy chế Đào tạo & Chuyên cần
-
-            </div>
-
-            <div class="card-body">
-
-                <ul class="list-group list-group-flush">
-
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-
-                        Số buổi nghỉ tối đa cho phép
-
-                        <span class="badge bg-secondary rounded-pill">2 buổi</span>
-
+                <ul class="list-group list-group-flush mb-4">
+                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                        <span class="text-muted">Tên đăng nhập:</span>
+                        <span class="fw-bold">{{ user_info.username }}</span>
                     </li>
-
-                    <li class="list-group-item d-flex justify-content-between align-items-center text-warning fw-bold">
-
-                        Mức kích hoạt Cảnh báo học vụ
-
-                        <span class="badge bg-warning text-dark rounded-pill">&ge; 3 buổi</span>
-
+                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                        <span class="text-muted">Họ và tên:</span>
+                        <span class="fw-bold">{{ user_info.ho_ten }}</span>
                     </li>
-
-                    <li class="list-group-item d-flex justify-content-between align-items-center text-danger fw-bold">
-
-                        Mức xử lý Buộc thôi học (Đuổi học)
-
-                        <span class="badge bg-danger rounded-pill">&ge; 5 buổi</span>
-
+                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                        <span class="text-muted">Chức vụ:</span>
+                        <span class="badge bg-danger">{{ user_info.role | upper }}</span>
                     </li>
-
+                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                        <span class="text-muted">Email liên hệ:</span>
+                        <span class="fw-bold text-primary">{{ user_info.get('email', 'Chưa cập nhật') }}</span>
+                    </li>
                 </ul>
-
-                <hr>
-
-                <p class="text-muted small mb-0">
-
-                    <i class="fa-solid fa-bell me-1"></i> Hệ thống tự động quét và áp dụng quy chế này ngay khi cán bộ quản lý thực hiện chốt sổ tại tab Điểm danh chuyên cần.
-
-                </p>
-
+                <button class="btn w-100 text-white fw-bold shadow-sm mb-2" style="background-color: #F27024;" data-bs-toggle="modal" data-bs-target="#updateProfileModal">
+                    <i class="fa-solid fa-pen-to-square me-2"></i>Chỉnh sửa hồ sơ
+                </button>
+                
+                {% if user_info.username != 'admin' %}
+                <form action="{{ url_for('settings') }}" method="POST" onsubmit="return confirm('⚠️ NGUY HIỂM: Bạn có chắc chắn muốn xóa VĨNH VIỄN tài khoản của mình không?');">
+                    <input type="hidden" name="action" value="delete_self">
+                    <button type="submit" class="btn w-100 btn-outline-danger fw-bold shadow-sm">
+                        <i class="fa-solid fa-user-xmark me-2"></i>Xóa tài khoản của tôi
+                    </button>
+                </form>
+                {% endif %}
             </div>
-
         </div>
-
     </div>
 
+    {% if session.get('role') == 'admin' %}
+    <div class="col-xl-8 col-lg-7">
+        <div class="card shadow-sm border-0 h-100" style="border-radius: 12px;">
+            <div class="card-header bg-primary text-white fw-bold d-flex justify-content-between align-items-center" style="border-radius: 12px 12px 0 0;">
+                <div><i class="fa-solid fa-users-gear me-2"></i>Quản lý tài khoản hệ thống</div>
+                <button class="btn btn-sm btn-light text-primary fw-bold" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                    <i class="fa-solid fa-plus me-1"></i>Thêm tài khoản
+                </button>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light sticky-top">
+                            <tr>
+                                <th class="ps-4">Tài khoản</th>
+                                <th>Họ tên / Email</th>
+                                <th>Quyền</th>
+                                <th class="text-center">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for u in all_users %}
+                            <tr>
+                                <td class="ps-4 fw-bold text-dark">{{ u.username }}</td>
+                                <td>
+                                    <div class="fw-bold">{{ u.ho_ten }}</div>
+                                    <small class="text-muted">{{ u.get('email', 'Chưa cập nhật') }}</small>
+                                </td>
+                                <td>
+                                    {% if u.role == 'admin' %}
+                                        <span class="badge bg-danger">ADMIN</span>
+                                    {% elif u.role == 'giaovien' %}
+                                        <span class="badge bg-success">GIÁO VIÊN</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">NHÂN VIÊN</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {% if u.username != user_info.username %}
+                                    <form action="{{ url_for('settings') }}" method="POST" class="d-inline">
+                                        <input type="hidden" name="action" value="delete_user">
+                                        <input type="hidden" name="del_username" value="{{ u.username }}">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('⚠️ Xóa vĩnh viễn tài khoản {{ u.username }} khỏi hệ thống?');">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                    {% else %}
+                                        <span class="badge bg-light text-muted border">Đang dùng</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
 
-
-
-<div class="card shadow-sm border-0 mb-4">
-
-    <div class="card-header bg-dark text-white fw-bold">
-
-        <i class="fa-solid fa-circle-info me-2"></i>Thông tin Nền tảng Ứng dụng
-
-    </div>
-
-    <div class="card-body">
-
-        <div class="row text-center py-2">
-
-            <div class="col-md-4">
-
-                <h6 class="text-muted mb-1">Phiên bản hiện tại</h6>
-
-                <p class="fw-bold text-primary mb-0">v1.0.0 (Sẵn sàng Production)</p>
-
+<div class="modal fade" id="updateProfileModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header text-white" style="background-color: #F27024;">
+                <h5 class="modal-title fw-bold"><i class="fa-solid fa-user-pen me-2"></i>Cập nhật tài khoản</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
-
-            <div class="col-md-4" style="border-left: 1px solid #dee2e6; border-right: 1px solid #dee2e6;">
-
-                <h6 class="text-muted mb-1">Công nghệ Backend</h6>
-
-                <p class="fw-bold text-success mb-0">Flask 3.0.2 (Python)</p>
-
-            </div>
-
-            <div class="col-md-4">
-
-                <h6 class="text-muted mb-1">Hệ thống vận hành</h6>
-
-                <p class="fw-bold mb-0" style="color: #F27024;">FPT ANTECH PORTAL</p>
-
-            </div>
-
+            <form action="{{ url_for('settings') }}" method="POST">
+                <input type="hidden" name="action" value="update_profile">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Họ và tên hiển thị</label>
+                        <input type="text" name="ho_ten" class="form-control" value="{{ user_info.ho_ten }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Email liên hệ</label>
+                        <input type="email" name="email" class="form-control" value="{{ user_info.get('email', '') }}" placeholder="admin@example.com">
+                    </div>
+                    <hr>
+                    <p class="text-muted small mb-2"><i class="fa-solid fa-triangle-exclamation text-warning me-1"></i>Bỏ trống nếu không muốn đổi mật khẩu</p>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Mật khẩu mới</label>
+                        <input type="password" name="new_password" class="form-control" placeholder="Nhập mật khẩu mới...">
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn text-white fw-bold" style="background-color: #F27024;">Lưu thay đổi</button>
+                </div>
+            </form>
         </div>
-
     </div>
-
 </div>
+
+{% if session.get('role') == 'admin' %}
+<div class="modal fade" id="addUserModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title fw-bold"><i class="fa-solid fa-user-plus me-2"></i>Cấp tài khoản mới</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ url_for('settings') }}" method="POST">
+                <input type="hidden" name="action" value="add_user">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Tên đăng nhập *</label>
+                        <input type="text" name="username" class="form-control" required placeholder="Ví dụ: gv_nguyenvana">
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Mật khẩu *</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Quyền hạn *</label>
+                            <select name="role" class="form-select">
+                                <option value="giaovien">Giáo viên</option>
+                                <option value="nhanvien">Nhân viên văn phòng</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Họ và tên *</label>
+                        <input type="text" name="ho_ten" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Email</label>
+                        <input type="email" name="email" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary fw-bold">Xác nhận tạo</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 {% endblock %}

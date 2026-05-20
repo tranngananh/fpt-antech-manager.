@@ -1,15 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<style>
+    /* Hiệu ứng nảy lên khi di chuột vào các nút truy cập nhanh */
+    .hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .hover-lift:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; border-color: #F27024 !important; }
+</style>
+
+<!-- Banner Lời chào -->
 <div style="background: linear-gradient(to right, #F27024, #f69d3c); color: white; border-radius: 15px; padding: 25px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(242, 112, 36, 0.3);">
-    <h3 class="fw-bold mb-2"><i class="fa-solid fa-hand-sparkles me-2"></i>Chào mừng trở lại, Cán bộ quản lý!</h3>
+    <h3 class="fw-bold mb-2">
+        <i class="fa-solid fa-hand-sparkles me-2"></i>Chào mừng trở lại, {{ current_hoten | default('Cán bộ quản lý') }}!
+    </h3>
     <p class="mb-0 fs-5">Hôm nay là một ngày tuyệt vời để theo dõi tiến độ học tập của các học viên FPT Antech.</p>
 </div>
 
 <h4 class="mb-4 text-secondary fw-bold">📊 TỔNG QUAN TRẠNG THÁI HỆ THỐNG</h4>
 
-<div class="row">
-    <div class="col-md-4 mb-4">
+<!-- Thẻ Thống kê -->
+<div class="row mb-4">
+    <div class="col-md-4 mb-3">
         <div class="card text-white h-100 position-relative overflow-hidden" style="background: linear-gradient(135deg, #4e73df 0%, #224abe 100%); border: none; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
             <div class="card-body p-4">
                 <h6 class="text-uppercase fw-bold mb-2 opacity-75">Tổng số người học</h6>
@@ -19,20 +29,20 @@
         </div>
     </div>
 
-    <div class="col-md-4 mb-4">
+    <div class="col-md-4 mb-3">
         <div class="card text-dark h-100 position-relative overflow-hidden" style="background: linear-gradient(135deg, #f6c23e 0%, #dda20a 100%); border: none; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
             <div class="card-body p-4">
-                <h6 class="text-uppercase fw-bold mb-2 opacity-75 text-dark">Học viên đang bị cảnh báo</h6>
+                <h6 class="text-uppercase fw-bold mb-2 opacity-75 text-dark">Đang cảnh báo học tập</h6>
                 <h2 class="display-4 fw-bold mb-0 text-dark">{{ warnings }}</h2>
             </div>
             <i class="fa-solid fa-triangle-exclamation" style="position: absolute; right: 20px; top: 20px; opacity: 0.15; font-size: 4rem; color: #000;"></i>
         </div>
     </div>
 
-    <div class="col-md-4 mb-4">
+    <div class="col-md-4 mb-3">
         <div class="card text-white h-100 position-relative overflow-hidden" style="background: linear-gradient(135deg, #e74a3b 0%, #be2617 100%); border: none; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
             <div class="card-body p-4">
-                <h6 class="text-uppercase fw-bold mb-2 opacity-75">Học viên bị buộc thôi học</h6>
+                <h6 class="text-uppercase fw-bold mb-2 opacity-75">Cảnh báo nghỉ học (Đuổi)</h6>
                 <h2 class="display-4 fw-bold mb-0">{{ expelled }}</h2>
             </div>
             <i class="fa-solid fa-user-slash" style="position: absolute; right: 20px; top: 20px; opacity: 0.15; font-size: 4rem;"></i>
@@ -40,18 +50,125 @@
     </div>
 </div>
 
-<div class="row mt-2">
+<!-- Biểu đồ và Truy cập nhanh -->
+<div class="row mb-4">
+    <!-- Biểu đồ -->
+    <div class="col-md-7 mb-4 mb-md-0">
+        <div class="card shadow-sm border-0 h-100" style="border-radius: 15px;">
+            <div class="card-header bg-white border-0 pt-4 pb-0">
+                <h6 class="fw-bold text-secondary mb-0"><i class="fa-solid fa-chart-pie me-2"></i>Tỉ lệ sức khỏe học vụ</h6>
+            </div>
+            <div class="card-body d-flex justify-content-center align-items-center">
+                {% if total > 0 %}
+                    <div style="height: 250px; width: 100%; position: relative;">
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                {% else %}
+                    <div class="text-center text-muted">
+                        <i class="fa-solid fa-folder-open fs-1 mb-3"></i>
+                        <p>Chưa có dữ liệu học viên</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Truy cập nhanh -->
+    <div class="col-md-5">
+        <div class="card shadow-sm border-0 h-100" style="border-radius: 15px;">
+            <div class="card-header bg-white border-0 pt-4 pb-0">
+                <h6 class="fw-bold text-secondary mb-0"><i class="fa-solid fa-bolt me-2"></i>Truy cập nhanh</h6>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <a href="{{ url_for('students') }}" class="btn btn-light w-100 py-4 text-center border shadow-sm rounded-3 hover-lift text-decoration-none">
+                            <i class="fa-solid fa-users text-primary fs-3 mb-2 d-block"></i>
+                            <span class="fw-bold text-dark">Học viên</span>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a href="{{ url_for('attendance') }}" class="btn btn-light w-100 py-4 text-center border shadow-sm rounded-3 hover-lift text-decoration-none">
+                            <i class="fa-solid fa-calendar-check text-success fs-3 mb-2 d-block"></i>
+                            <span class="fw-bold text-dark">Điểm danh</span>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a href="{{ url_for('warnings') }}" class="btn btn-light w-100 py-4 text-center border shadow-sm rounded-3 hover-lift text-decoration-none">
+                            <i class="fa-solid fa-triangle-exclamation text-warning fs-3 mb-2 d-block"></i>
+                            <span class="fw-bold text-dark">Cảnh báo</span>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a href="{{ url_for('reports') }}" class="btn btn-light w-100 py-4 text-center border shadow-sm rounded-3 hover-lift text-decoration-none">
+                            <i class="fa-solid fa-chart-column text-info fs-3 mb-2 d-block"></i>
+                            <span class="fw-bold text-dark">Thống kê</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Lời nhắc Điểm danh -->
+<div class="row">
     <div class="col-12">
-        <div class="card shadow-sm border-0 border-start border-primary border-4">
+        <div class="card shadow-sm border-0 border-start border-primary border-4" style="border-radius: 10px;">
             <div class="card-body d-flex justify-content-between align-items-center">
                 <div>
                     <h5 class="fw-bold mb-1">Cập nhật điểm danh hôm nay?</h5>
                     <p class="text-muted mb-0">Hệ thống sẽ tự động tính toán lại tình trạng học vụ ngay sau khi bạn chốt sổ.</p>
                 </div>
-                <a href="{{ url_for('attendance') }}" class="btn btn-outline-primary fw-bold px-4">Đến trang Điểm danh</a>
+                <a href="{{ url_for('attendance') }}" class="btn btn-primary fw-bold px-4 shadow-sm">Đến trang Điểm danh</a>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Thêm thư viện Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Chỉ vẽ biểu đồ nếu có dữ liệu
+        {% if total > 0 %}
+        var ctx = document.getElementById('statusChart').getContext('2d');
+        var statusChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Bình thường ({{ ok }})', 'Cảnh báo học tập ({{ warnings }})', 'Cảnh báo nghỉ học ({{ expelled }})'],
+                datasets: [{
+                    data: [{{ ok }}, {{ warnings }}, {{ expelled }}],
+                    backgroundColor: ['#1cc88a', '#f6c23e', '#e74a3b'],
+                    hoverBackgroundColor: ['#17a673', '#dda20a', '#be2617'],
+                    borderWidth: 2,
+                    borderColor: '#ffffff'
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                cutout: '65%',
+                plugins: {
+                    legend: { 
+                        position: 'bottom',
+                        labels: { padding: 20, font: { family: "'Segoe UI', sans-serif" } }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                let value = context.parsed || 0;
+                                let total = {{ total }};
+                                let percentage = Math.round((value / total) * 100) + '%';
+                                return label.split(' (')[0] + ': ' + value + ' học viên (' + percentage + ')';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        {% endif %}
+    });
+</script>
 
 {% endblock %}

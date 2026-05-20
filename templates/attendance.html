@@ -1,23 +1,142 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2 class="fw-bold text-secondary mb-3">⏱️ QUẢN LÝ ĐIỂM DANH CHUYÊN CẦN</h2>
-<p class="text-muted">Điều chỉnh trực tiếp số buổi vắng của người học tại đây. Hệ thống sẽ tự động tính toán cập nhật tình trạng học vụ.</p>
-<form action="{{ url_for('attendance') }}" method="POST" class="card shadow-sm border-0">
-    <div class="card-body px-0 py-0">
-        <table class="table table-striped align-middle mb-0">
-            <thead class="table-dark">
-                <tr><th>Mã ID</th><th>Họ và tên</th><th>Khóa học</th><th>Số buổi vắng hiện tại</th><th style="width: 250px;">Điều chỉnh số buổi vắng</th></tr>
-            </thead>
-            <tbody>
-                {% for s in students %}
-                <tr>
-                    <td>{{ s.id }}</td><td class="fw-bold text-secondary">{{ s.ho_va_ten }}</td><td>{{ s.khoa_hoc }}</td><td>{{ s.diem_danh }} buổi</td>
-                    <td><input type="number" name="absent_{{ s.id }}" value="{{ s.diem_danh }}" min="0" max="20" class="form-control form-control-sm w-50"></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-secondary fw-bold"><i class="fa-solid fa-calendar-check me-2"></i>QUẢN LÝ ĐIỂM DANH THEO NGÀY</h2>
+    <p class="text-muted mb-0">Đánh dấu tick (☑️) nếu Có mặt. Bỏ trống (⬜) là Vắng mặt.</p>
+</div>
+
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-body d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <form action="{{ url_for('attendance') }}" method="POST" class="d-flex gap-2 align-items-center">
+            <input type="hidden" name="action" value="add_day">
+            <label class="fw-bold text-muted text-nowrap">Thêm cột điểm danh:</label>
+            <input type="date" name="ngay_moi" class="form-control" required>
+            <button type="submit" class="btn btn-success text-nowrap shadow-sm">
+                <i class="fa-solid fa-plus me-1"></i>Tạo ngày
+            </button>
+        </form>
+
+        <button type="button" class="btn text-white fw-bold px-4 shadow-sm" style="background-color: #F27024;" onclick="document.getElementById('attendanceForm').submit();">
+            <i class="fa-solid fa-floppy-disk me-2"></i>Lưu Điểm Danh & Đồng Bộ
+        </button>
     </div>
-    <div class="card-footer text-end"><button type="submit" class="btn btn-warning fw-bold text-dark">Chốt sổ điểm danh & Quét học vụ</button></div>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+        {% if danh_sach_ngay %}
+        <form id="attendanceForm" action="{{ url_for('attendance') }}" method="POST">
+            <input type="hidden" name="action" value="save_attendance">
+            
+            <div class="table-responsive" style="max-height: 70vh; overflow-y: auto; overflow-x: auto;">
+                <table class="table table-hover table-bordered align-middle mb-0" style="min-width: 800px;">
+                    <thead class="table-dark sticky-top" style="z-index: 3;">
+                        <tr>
+                            <th class="text-center bg-dark text-white" style="position: sticky; left: 0; z-index: 4; width: 60px; min-width: 60px;">Mã</th>
+                            <th class="bg-dark text-white" style="position: sticky; left: 60px; z-index: 4; width: 200px; min-width: 200px;">Họ và tên</th>
+                            
+                            {% for ngay in danh_sach_ngay %}
+                            <th class="text-center" style="min-width: 140px;">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    {{ ngay }}
+                                    {% if current_role == 'admin' %}
+                                    <button type="button" class="btn btn-sm text-danger p-0 ms-2" onclick="confirmDeleteDay('{{ ngay }}')" title="Xóa ngày này">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                    {% endif %}
+                                </div>
+                            </th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for s in students %}
+                        <tr>
+                            <td class="text-center fw-bold bg-white" style="position: sticky; left: 0; z-index: 1;">{{ s.id }}</td>
+                            <td class="fw-bold text-secondary bg-white" style="position: sticky; left: 60px; z-index: 1;">
+                                {{ s.ho_va_ten }}
+                                <br><small class="text-muted fw-normal">{{ s.khoa_hoc }}</small>
+                            </td>
+                            
+                            {% for ngay in danh_sach_ngay %}
+                                {% set ns = namespace(status='Vắng') %}
+                                {% for rec in diem_danh[ngay] %}
+                                    {% if rec.id == s.id %}
+                                        {% set ns.status = rec.trang_thai %}
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                <td class="text-center {% if ns.status == 'Vắng' %}table-danger-light{% endif %}" style="background-color: {% if ns.status == 'Vắng' %}#fff5f5{% endif %};">
+                                    <input class="form-check-input border-secondary shadow-sm" 
+                                           type="checkbox" 
+                                           name="dd_{{ ngay }}_{{ s.id }}" 
+                                           value="1" 
+                                           {% if ns.status == 'Có mặt' %}checked{% endif %} 
+                                           style="transform: scale(1.5); cursor: pointer;">
+                                </td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                    <tfoot class="table-light fw-bold text-secondary border-top-2" style="position: sticky; bottom: 0; z-index: 2; background-color: #f8f9fa;">
+                        <tr>
+                            <td class="ps-3 bg-light text-dark" style="position: sticky; left: 0; z-index: 1;">-</td>
+                            <td class="text-success bg-light" style="position: sticky; left: 60px; z-index: 1;"><i class="fa-solid fa-circle-check me-1"></i>Tổng Có mặt:</td>
+                            
+                            {% for ngay in danh_sach_ngay %}
+                                {% set ns_co_mat = namespace(count=0) %}
+                                {% for rec in diem_danh[ngay] %}
+                                    {% if rec.trang_thai == 'Có mặt' %}
+                                        {% set ns_co_mat.count = ns_co_mat.count + 1 %}
+                                    {% endif %}
+                                {% endfor %}
+                                <td class="text-center text-success fs-6">{{ ns_co_mat.count }}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td class="ps-3 bg-light text-dark" style="position: sticky; left: 0; z-index: 1;">-</td>
+                            <td class="text-danger bg-light" style="position: sticky; left: 60px; z-index: 1;"><i class="fa-solid fa-circle-xmark me-1"></i>Tổng Vắng mặt:</td>
+                            
+                            {% for ngay in danh_sach_ngay %}
+                                {% set ns_vang = namespace(count=0) %}
+                                {% for rec in diem_danh[ngay] %}
+                                    {% if rec.trang_thai == 'Vắng' %}
+                                        {% set ns_vang.count = ns_vang.count + 1 %}
+                                    {% endif %}
+                                {% endfor %}
+                                <td class="text-center text-danger fs-6">{{ ns_vang.count }}</td>
+                            {% endfor %}
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </form>
+        {% else %}
+        <div class="text-center py-5 text-muted">
+            <i class="fa-solid fa-calendar-plus" style="font-size: 4rem;"></i>
+            <h5 class="mt-3">Chưa có dữ liệu điểm danh</h5>
+            <p>Vui lòng chọn ngày và bấm <b>Tạo ngày</b> ở thanh công cụ phía trên để bắt đầu.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% if current_role == 'admin' %}
+<form id="deleteDayForm" method="POST" action="{{ url_for('attendance') }}" class="d-none">
+    <input type="hidden" name="action" value="delete_day">
+    <input type="hidden" name="ngay_xoa" id="ngay_xoa_input">
 </form>
+
+<script>
+function confirmDeleteDay(ngay) {
+    if(confirm('⚠️ BẠN CÓ CHẮC CHẮN MUỐN XÓA NGÀY NÀY?\n\nXóa cột [' + ngay + '] sẽ làm mất toàn bộ dữ liệu điểm danh của ngày này. Hệ thống sẽ ngay lập tức tính toán lại toàn bộ tình trạng Cảnh báo học vụ của học viên!')) {
+        document.getElementById('ngay_xoa_input').value = ngay;
+        document.getElementById('deleteDayForm').submit();
+    }
+}
+</script>
+{% endif %}
+
 {% endblock %}

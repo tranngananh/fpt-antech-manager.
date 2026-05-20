@@ -2,56 +2,89 @@
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<h2 class="fw-bold text-secondary mb-4">📈 BÁO CÁO THỐNG KÊ TOÀN DIỆN</h2>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-secondary fw-bold"><i class="fa-solid fa-chart-pie me-2"></i>BÁO CÁO THỐNG KÊ TOÀN DIỆN</h2>
+</div>
 
-<div class="row mb-4">
+<!-- Vùng hiển thị Biểu đồ -->
+<div class="row mb-4 g-4">
+    <!-- Biểu đồ Cảnh báo -->
     <div class="col-md-4">
-        <div class="card shadow-sm border-0 h-100">
-            <div class="card-header bg-dark text-white fw-bold"><i class="fa-solid fa-chart-pie me-2"></i>Tình trạng học vụ</div>
-            <div class="card-body">
+        <div class="card shadow-sm border-0 h-100" style="border-radius: 12px;">
+            <div class="card-header bg-white border-0 pt-4 pb-0 text-center">
+                <h6 class="fw-bold text-secondary mb-0"><i class="fa-solid fa-triangle-exclamation me-2"></i>Tình trạng học vụ</h6>
+            </div>
+            <div class="card-body d-flex justify-content-center align-items-center" style="min-height: 250px;">
                 <canvas id="chartCanhBao"></canvas>
             </div>
         </div>
     </div>
+
+    <!-- Biểu đồ Khóa học -->
     <div class="col-md-4">
-        <div class="card shadow-sm border-0 h-100">
-            <div class="card-header bg-dark text-white fw-bold"><i class="fa-solid fa-chart-bar me-2"></i>Phân bổ Khóa học</div>
-            <div class="card-body">
+        <div class="card shadow-sm border-0 h-100" style="border-radius: 12px;">
+            <div class="card-header bg-white border-0 pt-4 pb-0 text-center">
+                <h6 class="fw-bold text-secondary mb-0"><i class="fa-solid fa-layer-group me-2"></i>Phân bổ Khóa học</h6>
+            </div>
+            <div class="card-body d-flex justify-content-center align-items-center" style="min-height: 250px;">
                 <canvas id="chartKhoaHoc"></canvas>
             </div>
         </div>
     </div>
+
+    <!-- Biểu đồ Giới tính -->
     <div class="col-md-4">
-        <div class="card shadow-sm border-0 h-100">
-            <div class="card-header bg-dark text-white fw-bold"><i class="fa-solid fa-venus-mars me-2"></i>Tỉ lệ Giới tính</div>
-            <div class="card-body" style="position: relative; height:250px; width:100%">
+        <div class="card shadow-sm border-0 h-100" style="border-radius: 12px;">
+            <div class="card-header bg-white border-0 pt-4 pb-0 text-center">
+                <h6 class="fw-bold text-secondary mb-0"><i class="fa-solid fa-venus-mars me-2"></i>Tỉ lệ Giới tính</h6>
+            </div>
+            <div class="card-body d-flex justify-content-center align-items-center" style="min-height: 250px;">
                 <canvas id="chartGioiTinh"></canvas>
             </div>
         </div>
     </div>
 </div>
 
-<div class="card shadow-sm border-0">
-    <div class="card-header bg-primary text-white fw-bold"><i class="fa-solid fa-table-list me-2"></i>Bảng kê chi tiết học viên</div>
+<!-- Bảng kê chi tiết -->
+<div class="card shadow-sm border-0" style="border-radius: 12px;">
+    <div class="card-header bg-dark text-white pt-3 pb-3" style="border-top-left-radius: 12px; border-top-right-radius: 12px;">
+        <h6 class="fw-bold mb-0"><i class="fa-solid fa-table-list me-2"></i>Bảng kê chi tiết dữ liệu học viên</h6>
+    </div>
     <div class="card-body px-0 py-0">
-        <div class="table-responsive">
+        <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
             <table class="table table-hover align-middle mb-0">
-                <thead class="table-light">
-                    <tr><th class="ps-3">Mã ID</th><th>Họ và tên</th><th>Khóa học</th><th>Giới tính</th><th>Số điện thoại</th><th class="text-center">Số buổi vắng</th><th>Tình trạng học vụ</th></tr>
+                <thead class="table-light sticky-top">
+                    <tr>
+                        <th class="ps-4">Mã</th>
+                        <th>Họ và tên</th>
+                        <th>Khóa học</th>
+                        <th>Giới tính</th>
+                        <th>Số điện thoại</th>
+                        <th class="text-center">Số buổi vắng</th>
+                        <th>Tình trạng học vụ</th>
+                    </tr>
                 </thead>
                 <tbody>
                     {% for s in students %}
                     <tr>
-                        <td class="ps-3"><strong>{{ s.id }}</strong></td>
+                        <td class="ps-4 fw-bold text-secondary">{{ s.id }}</td>
                         <td class="fw-bold">{{ s.ho_va_ten }}</td>
-                        <td><span class="badge bg-secondary">{{ s.khoa_hoc }}</span></td>
+                        <td><span class="badge bg-secondary px-2 py-1">{{ s.khoa_hoc }}</span></td>
                         <td>{{ s.gioi_tinh }}</td>
                         <td>{{ s.so_dien_thoai }}</td>
-                        <td class="text-center text-danger fw-bold">{{ s.diem_danh }}</td>
+                        
+                        <!-- Đã sửa thành s.so_ngay_vang -->
+                        <td class="text-center text-danger fw-bold fs-5">{{ s.so_ngay_vang }}</td>
+                        
+                        <!-- Đã sửa điều kiện logic cảnh báo -->
                         <td>
-                            <span class="badge {% if s.canh_bao == 'Không' %}bg-success{% elif s.canh_bao == 'Cảnh báo' %}bg-warning text-dark{% else %}bg-danger{% endif %}">
-                                {{ s.canh_bao }}
-                            </span>
+                            {% if s.canh_bao == 'Không' %}
+                                <span class="badge bg-success shadow-sm">Bình thường</span>
+                            {% elif s.canh_bao == 'Cảnh báo học tập' %}
+                                <span class="badge bg-warning text-dark shadow-sm">Cảnh báo học tập</span>
+                            {% else %}
+                                <span class="badge bg-danger shadow-sm">Cảnh báo nghỉ học</span>
+                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}
@@ -62,25 +95,35 @@
 </div>
 
 <script>
-    // Nhận dữ liệu đếm từ Python truyền sang HTML
-    const tkCanhBao = {{ tk_canh_bao | tojson }};
-    const tkKhoaHoc = {{ tk_khoa_hoc | tojson }};
-    const tkGioiTinh = {{ tk_gioi_tinh | tojson }};
+    // Nhận dữ liệu từ Flask (dùng | safe để đảm bảo chuỗi JSON không bị lỗi format)
+    const tkCanhBao = {{ tk_canh_bao | tojson | safe }};
+    const tkKhoaHoc = {{ tk_khoa_hoc | tojson | safe }};
+    const tkGioiTinh = {{ tk_gioi_tinh | tojson | safe }};
 
-    // 1. Biểu đồ Tròn (Pie) - Tình trạng học vụ
+    // Hàm tiện ích để setup font mặc định cho Chart.js
+    Chart.defaults.font.family = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+    Chart.defaults.color = '#6c757d';
+
+    // 1. Biểu đồ Tình trạng học vụ (Pie)
     new Chart(document.getElementById('chartCanhBao'), {
         type: 'pie',
         data: {
             labels: Object.keys(tkCanhBao),
             datasets: [{
                 data: Object.values(tkCanhBao),
-                backgroundColor: ['#198754', '#ffc107', '#dc3545'], // Xanh - Vàng - Đỏ
-                borderWidth: 1
+                backgroundColor: ['#1cc88a', '#f6c23e', '#e74a3b'], // Xanh - Vàng - Đỏ
+                borderWidth: 2,
+                borderColor: '#ffffff',
+                hoverOffset: 4
             }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'bottom' } }
         }
     });
 
-    // 2. Biểu đồ Cột (Bar) - Khóa học
+    // 2. Biểu đồ Khóa học (Bar)
     new Chart(document.getElementById('chartKhoaHoc'), {
         type: 'bar',
         data: {
@@ -89,24 +132,38 @@
                 label: 'Số học viên',
                 data: Object.values(tkKhoaHoc),
                 backgroundColor: '#F27024', // Màu cam FPT
-                borderRadius: 4
+                borderRadius: 6, // Bo góc cột
+                barPercentage: 0.6
             }]
         },
-        options: { scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }
+        options: {
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { 
+                y: { beginAtZero: true, ticks: { stepSize: 1 } },
+                x: { grid: { display: false } }
+            }
+        }
     });
 
-    // 3. Biểu đồ Vòng khuyên (Doughnut) - Giới tính
+    // 3. Biểu đồ Giới tính (Doughnut)
     new Chart(document.getElementById('chartGioiTinh'), {
         type: 'doughnut',
         data: {
             labels: Object.keys(tkGioiTinh),
             datasets: [{
                 data: Object.values(tkGioiTinh),
-                backgroundColor: ['#0d6efd', '#e83e8c'], // Xanh dương (Nam) - Hồng (Nữ)
-                borderWidth: 1
+                backgroundColor: ['#4e73df', '#e83e8c', '#858796'], // Xanh dương - Hồng - Xám
+                borderWidth: 2,
+                borderColor: '#ffffff',
+                hoverOffset: 4
             }]
         },
-        options: { maintainAspectRatio: false }
+        options: { 
+            maintainAspectRatio: false,
+            cutout: '60%',
+            plugins: { legend: { position: 'bottom' } }
+        }
     });
 </script>
 {% endblock %}

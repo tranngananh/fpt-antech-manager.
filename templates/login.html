@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập & Đăng ký - FPT Antech</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { 
+            background: linear-gradient(135deg, #f4f6f9 0%, #e0e5ec 100%); 
+            min-height: 100vh; display: flex; align-items: center; justify-content: center; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .login-wrapper { 
+            border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
+            overflow: hidden; width: 100%; max-width: 900px; display: flex; background: white;
+        }
+        .login-banner { 
+            background: linear-gradient(135deg, #F27024 0%, #d85a18 100%); 
+            color: white; padding: 50px; width: 45%; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; text-align: center; 
+        }
+        .form-section { padding: 40px 50px; width: 55%; position: relative; }
+        
+        /* Ẩn hiện form */
+        #register-form { display: none; }
+        .toggle-link { color: #F27024; cursor: pointer; font-weight: bold; text-decoration: none; }
+        .toggle-link:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .login-banner { display: none; }
+            .form-section { width: 100%; padding: 40px 30px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container d-flex justify-content-center p-3">
+        <div class="login-wrapper">
+            <div class="login-banner">
+                <i class="fa-solid fa-graduation-cap mb-3" style="font-size: 5rem;"></i>
+                <h2 class="fw-bold mb-3">FPT ANTECH</h2>
+                <p class="fs-6 opacity-75">Hệ thống Quản lý Học vụ & Điểm danh</p>
+            </div>
+            
+            <div class="form-section">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} py-2"><i class="fa-solid fa-circle-info me-2"></i>{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <div id="login-form">
+                    <h3 class="fw-bold mb-4 text-center text-secondary">ĐĂNG NHẬP</h3>
+                    <form action="{{ url_for('login') }}" method="POST">
+                        <div class="mb-3">
+                            <label class="fw-bold text-secondary small">Tên đăng nhập / Email <span class="text-danger">*</span></label>
+                            <input type="text" name="username" class="form-control form-control-lg bg-light" required autofocus>
+                        </div>
+                        <div class="mb-4">
+                            <label class="fw-bold text-secondary small">Mật khẩu <span class="text-danger">*</span></label>
+                            <input type="password" name="password" class="form-control form-control-lg bg-light" required>
+                        </div>
+                        <button type="submit" class="btn btn-lg w-100 text-white fw-bold shadow-sm" style="background-color: #F27024;">Đăng nhập</button>
+                    </form>
+                    <div class="text-center mt-4">
+                        <span class="text-muted">Chưa có tài khoản?</span> 
+                        <a class="toggle-link" onclick="toggleForms()">Đăng ký ngay</a>
+                    </div>
+                </div>
+
+                <div id="register-form">
+                    <h3 class="fw-bold mb-4 text-center text-secondary">ĐĂNG KÝ TÀI KHOẢN</h3>
+                    <form action="{{ url_for('register') }}" method="POST">
+                        <div class="row g-2">
+                            <div class="col-md-6 mb-2">
+                                <label class="fw-bold text-secondary small">Tên đăng nhập *</label>
+                                <input type="text" name="username" class="form-control bg-light" required>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class="fw-bold text-secondary small">Họ và tên *</label>
+                                <input type="text" name="ho_ten" class="form-control bg-light" required>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class="fw-bold text-secondary small">Email *</label>
+                                <input type="email" name="email" class="form-control bg-light" required>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class="fw-bold text-secondary small">Số điện thoại *</label>
+                                <input type="text" name="sdt" class="form-control bg-light" required>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class="fw-bold text-secondary small">Giới tính</label>
+                                <select name="gioi_tinh" class="form-select bg-light">
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class="fw-bold text-secondary small">Chức vụ *</label>
+                                <select name="role" class="form-select bg-light">
+                                    <option value="giaovien">Giáo viên</option>
+                                    <option value="nhanvien">Nhân viên văn phòng</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class="fw-bold text-secondary small">Mật khẩu *</label>
+                                <input type="password" name="password" class="form-control bg-light" required>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label class="fw-bold text-secondary small">Nhập lại MK *</label>
+                                <input type="password" name="confirm_password" class="form-control bg-light" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn w-100 text-white fw-bold shadow-sm" style="background-color: #F27024;">Đăng ký</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <span class="text-muted">Đã có tài khoản?</span> 
+                        <a class="toggle-link" onclick="toggleForms()">Quay lại Đăng nhập</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleForms() {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            
+            if (loginForm.style.display === 'none') {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+            } else {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

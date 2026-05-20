@@ -1,242 +1,302 @@
 [
   {
     "id": "001",
-    "khoa_hoc": "full-stack"
+    "khoa_hoc": "full-stack",
+    "lop_hoc": "FS001"
   },
   {
     "id": "002",
-    "khoa_hoc": "front-end"
+    "khoa_hoc": "front-end",
+    "lop_hoc": "FE001"
   },
   {
     "id": "003",
-    "khoa_hoc": "back-end"
+    "khoa_hoc": "back-end",
+    "lop_hoc": "BE001"
   },
   {
     "id": "004",
-    "khoa_hoc": "game"
+    "khoa_hoc": "game",
+    "lop_hoc": "G001"
   },
   {
     "id": "005",
-    "khoa_hoc": "front-end"
+    "khoa_hoc": "front-end",
+    "lop_hoc": "FE002"
   },
   {
     "id": "006",
-    "khoa_hoc": "full-stack"
+    "khoa_hoc": "full-stack",
+    "lop_hoc": "FS002"
   },
   {
     "id": "007",
-    "khoa_hoc": "back-end"
+    "khoa_hoc": "back-end",
+    "lop_hoc": "BE002"
   },
   {
     "id": "008",
-    "khoa_hoc": "front-end"
+    "khoa_hoc": "front-end",
+    "lop_hoc": "FE001"
   },
   {
     "id": "009",
-    "khoa_hoc": "game"
+    "khoa_hoc": "game",
+    "lop_hoc": "G002"
   },
   {
     "id": "010",
-    "khoa_hoc": "full-stack"
+    "khoa_hoc": "full-stack",
+    "lop_hoc": "FS001"
   },
   {
     "id": "011",
-    "khoa_hoc": "back-end"
+    "khoa_hoc": "back-end",
+    "lop_hoc": "BE002"
   },
   {
     "id": "012",
-    "khoa_hoc": "front-end"
+    "khoa_hoc": "front-end",
+    "lop_hoc": "FE001"
   },
   {
     "id": "013",
-    "khoa_hoc": "game"
+    "khoa_hoc": "game",
+    "lop_hoc": "G001"
   },
   {
     "id": "014",
-    "khoa_hoc": "back-end"
+    "khoa_hoc": "back-end",
+    "lop_hoc": "BE002"
   },
   {
     "id": "015",
-    "khoa_hoc": "full-stack"
+    "khoa_hoc": "full-stack",
+    "lop_hoc": "FS001"
   },
   {
     "id": "016",
-    "khoa_hoc": "front-end"
+    "khoa_hoc": "front-end",
+    "lop_hoc": "FE001"
   },
   {
     "id": "017",
-    "khoa_hoc": "game"
+    "khoa_hoc": "game",
+    "lop_hoc": "G002"
   },
   {
     "id": "018",
-    "khoa_hoc": "back-end"
+    "khoa_hoc": "back-end",
+    "lop_hoc": "BE001"
   },
   {
     "id": "019",
-    "khoa_hoc": "front-end"
+    "khoa_hoc": "front-end",
+    "lop_hoc": "FE001"
   },
   {
     "id": "020",
-    "khoa_hoc": "full-stack"
+    "khoa_hoc": "full-stack",
+    "lop_hoc": "FS002"
   },
   {
     "id": "021",
-    "khoa_hoc": "back-end"
+    "khoa_hoc": "back-end",
+    "lop_hoc": "BE002"
   },
   {
     "id": "022",
-    "khoa_hoc": "front-end"
+    "khoa_hoc": "front-end",
+    "lop_hoc": "FE001"
   },
   {
     "id": "023",
-    "khoa_hoc": "full-stack"
+    "khoa_hoc": "full-stack",
+    "lop_hoc": "FS002"
   },
   {
     "id": "024",
-    "khoa_hoc": "back-end"
+    "khoa_hoc": "back-end",
+    "lop_hoc": "BE001"
   },
   {
     "id": "025",
-    "khoa_hoc": "front-end"
+    "khoa_hoc": "front-end",
+    "lop_hoc": "FE002"
   },
   {
     "id": "026",
-    "khoa_hoc": "full-stack"
+    "khoa_hoc": "full-stack",
+    "lop_hoc": "FS001"
   },
   {
     "id": "027",
-    "khoa_hoc": "back-end"
+    "khoa_hoc": "back-end",
+    "lop_hoc": "BE001"
   },
   {
     "id": "028",
-    "khoa_hoc": "front-end"
+    "khoa_hoc": "front-end",
+    "lop_hoc": "FE001"
   },
   {
     "id": "029",
-    "khoa_hoc": "full-stack"
+    "khoa_hoc": "full-stack",
+    "lop_hoc": "FS002"
   },
   {
     "id": "030",
-    "khoa_hoc": "back-end"
+    "khoa_hoc": "back-end",
+    "lop_hoc": "BE001"
   },
   {
     "id": "031",
-    "khoa_hoc": "front-end"
+    "khoa_hoc": "front-end",
+    "lop_hoc": "FE001"
   },
   {
     "id": "032",
-    "khoa_hoc": "back-end"
+    "khoa_hoc": "back-end",
+    "lop_hoc": "BE002"
   },
   {
     "id": "033",
-    "khoa_hoc": "full-stack"
+    "khoa_hoc": "full-stack",
+    "lop_hoc": "FS001"
   },
   {
     "id": "034",
-    "khoa_hoc": "front-end"
+    "khoa_hoc": "front-end",
+    "lop_hoc": "FE002"
   },
   {
     "id": "035",
-    "khoa_hoc": "back-end"
+    "khoa_hoc": "back-end",
+    "lop_hoc": "BE001"
   },
   {
     "id": "036",
-    "khoa_hoc": "full-stack"
+    "khoa_hoc": "full-stack",
+    "lop_hoc": "FS001"
   },
   {
     "id": "037",
-    "khoa_hoc": "front-end"
+    "khoa_hoc": "front-end",
+    "lop_hoc": "FE002"
   },
   {
     "id": "038",
-    "khoa_hoc": "back-end"
+    "khoa_hoc": "back-end",
+    "lop_hoc": "BE002"
   },
   {
     "id": "039",
-    "khoa_hoc": "full-stack"
+    "khoa_hoc": "full-stack",
+    "lop_hoc": "FS002"
   },
   {
     "id": "040",
-    "khoa_hoc": "front-end"
+    "khoa_hoc": "front-end",
+    "lop_hoc": "FE001"
   },
   {
     "id": "041",
-    "khoa_hoc": "full-stack"
+    "khoa_hoc": "full-stack",
+    "lop_hoc": "FE001"
   },
   {
     "id": "042",
-    "khoa_hoc": "back-end"
+    "khoa_hoc": "back-end",
+    "lop_hoc": "BE002"
   },
   {
     "id": "043",
-    "khoa_hoc": "front-end"
+    "khoa_hoc": "front-end",
+    "lop_hoc": "FE001"
   },
   {
     "id": "044",
-    "khoa_hoc": "full-stack"
+    "khoa_hoc": "full-stack",
+    "lop_hoc": "FS002"
   },
   {
     "id": "045",
-    "khoa_hoc": "back-end"
+    "khoa_hoc": "back-end",
+    "lop_hoc": "BE002"
   },
   {
     "id": "046",
-    "khoa_hoc": "full-stack"
+    "khoa_hoc": "full-stack",
+    "lop_hoc": "FS002"
   },
   {
     "id": "047",
-    "khoa_hoc": "back-end"
+    "khoa_hoc": "back-end",
+    "lop_hoc": "BE001"
   },
   {
     "id": "048",
-    "khoa_hoc": "front-end"
+    "khoa_hoc": "front-end",
+    "lop_hoc": "FE002"
   },
   {
     "id": "049",
-    "khoa_hoc": "back-end"
+    "khoa_hoc": "back-end",
+    "lop_hoc": "BE002"
   },
   {
     "id": "050",
-    "khoa_hoc": "back-end"
+    "khoa_hoc": "back-end",
+    "lop_hoc": "BE002"
   },
   {
     "id": "051",
-    "khoa_hoc": "front-end"
+    "khoa_hoc": "front-end",
+    "lop_hoc": "FE001"
   },
   {
     "id": "052",
-    "khoa_hoc": "back-end"
+    "khoa_hoc": "back-end",
+    "lop_hoc": "BE001"
   },
   {
     "id": "053",
-    "khoa_hoc": "full-stack"
+    "khoa_hoc": "full-stack",
+    "lop_hoc": "FS002"
   },
   {
     "id": "054",
-    "khoa_hoc": "front-end"
+    "khoa_hoc": "front-end",
+    "lop_hoc": "FE001"
   },
   {
     "id": "055",
-    "khoa_hoc": "back-end"
+    "khoa_hoc": "back-end",
+    "lop_hoc": "BE002"
   },
   {
     "id": "056",
-    "khoa_hoc": "full-stack"
+    "khoa_hoc": "full-stack",
+    "lop_hoc": "FS001"
   },
   {
     "id": "057",
-    "khoa_hoc": "front-end"
+    "khoa_hoc": "front-end",
+    "lop_hoc": "FE002"
   },
   {
     "id": "058",
-    "khoa_hoc": "back-end"
+    "khoa_hoc": "back-end",
+    "lop_hoc": "BE001"
   },
   {
     "id": "059",
-    "khoa_hoc": "full-stack"
+    "khoa_hoc": "full-stack",
+    "lop_hoc": "FS002"
   },
   {
     "id": "060",
-    "khoa_hoc": "front-end"
+    "khoa_hoc": "front-end",
+    "lop_hoc": "FE001"
   }
 ]

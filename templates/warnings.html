@@ -1,22 +1,114 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2 class="fw-bold text-danger mb-4">⚠️ DANH SÁCH XỬ LÝ CẢNH BÁO HỌC VỤ</h2>
-<div class="card shadow-sm border-0">
-    <div class="card-body px-0 py-0">
-        <table class="table table-hover align-middle mb-0">
-            <thead class="table-dark">
-                <tr><th>Mã ID</th><th>Họ và tên</th><th>Khóa học</th><th>Số điện thoại</th><th>Số buổi vắng</th><th>Tình trạng học vụ</th></tr>
-            </thead>
-            <tbody>
-                {% for s in students %}
-                <tr class="{% if s.canh_bao == 'Đuổi học' %}table-danger{% else %}table-warning{% endif %}">
-                    <td><strong>{{ s.id }}</strong></td><td class="fw-bold">{{ s.ho_va_ten }}</td><td>{{ s.khoa_hoc }}</td><td>{{ s.so_dien_thoai }}</td>
-                    <td class="fw-bold text-danger">{{ s.diem_danh }} buổi</td>
-                    <td><span class="badge {% if s.canh_bao == 'Cảnh báo' %}bg-warning text-dark{% else %}bg-danger{% endif %}">{{ s.canh_bao }}</span></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-secondary fw-bold"><i class="fa-solid fa-triangle-exclamation me-2"></i>CẢNH BÁO HỌC VỤ</h2>
+</div>
+
+<!-- 3 Thẻ Thống kê Tổng quan -->
+<div class="row mb-4">
+    <!-- Tổng cần xử lý -->
+     <div class="col-md-4 mb-3">
+        <div class="card bg-dark text-white h-100 border-0 shadow-sm position-relative overflow-hidden" style="border-radius: 12px;">
+            <div class="card-body p-4">
+                <h6 class="text-uppercase fw-bold text-light mb-2">Tổng số ca vi phạm</h6>
+                <h2 class="display-4 fw-bold mb-0">{{ warning_list|length }}</h2>
+            </div>
+            <i class="fa-solid fa-clipboard-list position-absolute" style="right: -10px; bottom: -10px; font-size: 6rem; opacity: 0.15;"></i>
+        </div>
+    </div>
+
+    <!-- Cảnh báo học tập (Màu vàng) -->
+    <div class="col-md-4 mb-3">
+        <div class="card bg-warning text-dark h-100 border-0 shadow-sm position-relative overflow-hidden" style="border-radius: 12px;">
+            <div class="card-body p-4">
+                <h6 class="text-uppercase fw-bold opacity-75 mb-1">Cảnh báo học tập (≥ 3 buổi)</h6>
+                <h2 class="display-5 fw-bold mb-0">{{ hoc_tap|length }}</h2>
+            </div>
+            <i class="fa-solid fa-circle-exclamation position-absolute" style="right: -10px; bottom: -10px; font-size: 6rem; opacity: 0.1;"></i>
+        </div>
+    </div>
+
+    <!-- Cảnh báo nghỉ học (Màu đỏ) -->
+    <div class="col-md-4 mb-3">
+        <div class="card bg-danger text-white h-100 border-0 shadow-sm position-relative overflow-hidden" style="border-radius: 12px;">
+            <div class="card-body p-4">
+                <h6 class="text-uppercase fw-bold opacity-75 mb-1">Cảnh báo nghỉ học (≥ 5 buổi)</h6>
+                <h2 class="display-5 fw-bold mb-0">{{ nghi_hoc|length }}</h2>
+            </div>
+            <i class="fa-solid fa-ban position-absolute" style="right: -10px; bottom: -10px; font-size: 6rem; opacity: 0.1;"></i>
+        </div>
     </div>
 </div>
+
+<!-- Bảng chi tiết danh sách vi phạm -->
+<div class="card shadow-sm border-0" style="border-radius: 12px;">
+    <div class="card-header bg-white border-0 pt-4 pb-2">
+        <h5 class="fw-bold text-secondary mb-0"><i class="fa-solid fa-list me-2"></i>Danh sách học viên vi phạm</h5>
+    </div>
+    <div class="card-body p-0">
+        {% if warning_list %}
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">Mã</th>
+                        <th>Họ và tên</th>
+                        <th>Khóa / Lớp</th>
+                        <th class="text-center">Số buổi vắng</th>
+                        <th>Mức độ vi phạm</th>
+                        <th class="text-center">Liên hệ nhanh</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in warning_list %}
+                    <!-- Đổi màu nền của dòng dựa trên mức độ cảnh báo -->
+                    <tr class="{% if s.canh_bao == 'Cảnh báo nghỉ học' %}table-danger{% else %}table-warning{% endif %}">
+                        <td class="ps-4 fw-bold">{{ s.id }}</td>
+                        <td class="fw-bold">{{ s.ho_va_ten }}</td>
+                        <td>
+                            <span class="d-block badge bg-secondary">{{ s.khoa_hoc }}</span>
+                            <small class="text-muted fw-bold">{{ s.lop_hoc }}</small>
+                        </td>
+                        <td class="text-center">
+                            <span class="fs-5 fw-bold text-danger">{{ s.so_ngay_vang }}</span>
+                        </td>
+                        <td>
+                            {% if s.canh_bao == 'Cảnh báo nghỉ học' %}
+                                <span class="badge bg-danger fs-6 py-2 px-3 shadow-sm"><i class="fa-solid fa-ban me-1"></i>Đề nghị đuổi học</span>
+                            {% else %}
+                                <span class="badge bg-warning text-dark fs-6 py-2 px-3 shadow-sm"><i class="fa-solid fa-triangle-exclamation me-1"></i>Cảnh báo học tập</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            <!-- Nút gọi điện (mở app gọi trên điện thoại/máy tính) -->
+                            <a href="tel:{{ s.so_dien_thoai }}" class="btn btn-sm btn-dark rounded-circle me-1 shadow-sm" title="Gọi số {{ s.so_dien_thoai }}">
+                                <i class="fa-solid fa-phone"></i>
+                            </a>
+                            
+                            <!-- Nút gửi email (chỉ hiện nếu có email hợp lệ) -->
+                            {% if s.email and s.email != '-' %}
+                            <a href="mailto:{{ s.email }}" class="btn btn-sm btn-outline-dark rounded-circle shadow-sm" title="Gửi email cho {{ s.ho_va_ten }}">
+                                <i class="fa-solid fa-envelope"></i>
+                            </a>
+                            {% else %}
+                            <button class="btn btn-sm btn-outline-secondary rounded-circle disabled" title="Không có email"><i class="fa-solid fa-envelope-open"></i></button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <!-- Trạng thái trống (Không có ai vi phạm) -->
+        <div class="text-center py-5">
+            <i class="fa-regular fa-face-smile-beam text-success mb-3" style="font-size: 4rem;"></i>
+            <h5 class="text-muted fw-bold">Tuyệt vời!</h5>
+            <p class="text-secondary">Hiện tại không có học viên nào nằm trong diện cảnh báo.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
 {% endblock %}
