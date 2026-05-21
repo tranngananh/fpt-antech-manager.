@@ -12,7 +12,7 @@ def evaluate_academic_warning(student_id, absences):
         
     if absences >= 5:
         nh['canh_bao'] = "Cảnh báo nghỉ học"
-    elif absences >= 3:
+    elif absences >= 4:
         nh['canh_bao'] = "Cảnh báo học tập"
     else:
         nh['canh_bao'] = "Không"
