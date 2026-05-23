@@ -100,32 +100,33 @@ def dashboard():
 # ============================================================
 @app.route('/register', methods=['POST'])
 def register():
-    username = request.form.get('username', '').strip()
-    password = request.form.get('password', '').strip()
+    username         = request.form.get('username', '').strip()
+    password         = request.form.get('password', '').strip()
     confirm_password = request.form.get('confirm_password', '').strip()
-    role = request.form.get('role', 'nhanvien')
-    ho_ten = request.form.get('ho_ten', '').strip()
-    
-    # 1. Kiểm tra mật khẩu có khớp không
+    role             = request.form.get('role', 'nhanvien')
+    ho_ten           = request.form.get('ho_ten', '').strip()
+    email            = request.form.get('email', '').strip()        # ← thêm
+    so_dien_thoai    = request.form.get('sdt', '').strip()          # ← thêm
+
     if password != confirm_password:
         flash("❌ Mật khẩu xác nhận không khớp!", "danger")
         return redirect(url_for('login'))
-        
-    # 2. Gọi hàm tạo User từ models.py
+
     success, msg = UserModel.create(
-        username=username, 
-        password=password, 
-        role=role, 
-        ho_ten=ho_ten
+        username=username,
+        password=password,
+        role=role,
+        ho_ten=ho_ten,
+        email=email,                 # ← thêm
+        so_dien_thoai=so_dien_thoai, # ← thêm
     )
-    
+
     if success:
         flash("✅ Đăng ký thành công! Vui lòng đăng nhập.", "success")
     else:
         flash(msg, "danger")
-        
-    return redirect(url_for('login'))
 
+    return redirect(url_for('login'))
 # ============================================================
 # STUDENTS — Danh sách, thêm, sửa
 # Xóa chỉ dành cho Admin
@@ -328,67 +329,59 @@ def reports():
 def settings():
     if 'user' not in session:
         return redirect(url_for('login'))
-        
-    current_username = session['user'] # Đây là chuỗi tên đăng nhập (VD: 'admin')
-    users = UserModel._read() # Lấy danh sách tất cả tài khoản
-    
-    # Tìm thông tin chi tiết của user đang đăng nhập (dưới dạng từ điển dictionary)
+
+    current_username = session['user']
+    users = UserModel._read()
     user_info = next((u for u in users if u['username'] == current_username), {})
-    
+
     if request.method == 'POST':
         action = request.form.get('action', 'update_profile')
-        
-        # 1. XỬ LÝ CẬP NHẬT THÔNG TIN CÁ NHÂN
+
+        # 1. CẬP NHẬT THÔNG TIN CÁ NHÂN
         if action == 'update_profile':
             ho_ten_moi  = request.form.get('ho_ten', '').strip()
             email_moi   = request.form.get('email', '').strip()
-            sdt_moi     = request.form.get('so_dien_thoai', '').strip()  # ← thêm
-            dia_chi_moi = request.form.get('dia_chi', '').strip()        # ← thêm
+            sdt_moi     = request.form.get('so_dien_thoai', '').strip()
+            dia_chi_moi = request.form.get('dia_chi', '').strip()
             mk_moi      = request.form.get('new_password', '').strip()
-            
+
             for u in users:
                 if u['username'] == current_username:
                     u['ho_ten']        = ho_ten_moi
                     u['email']         = email_moi
-                    u['so_dien_thoai'] = sdt_moi      # ← thêm
-                    u['dia_chi']       = dia_chi_moi  # ← thêm
+                    u['so_dien_thoai'] = sdt_moi
+                    u['dia_chi']       = dia_chi_moi
                     if mk_moi:
                         u['password'] = UserModel._hash(mk_moi)
                     session['ho_ten'] = ho_ten_moi
                     break
             UserModel._save(users)
             flash("✅ Cập nhật thông tin cá nhân thành công!", "success")
-            
-        # 2. XỬ LÝ TỰ XÓA TÀI KHOẢN
+
+        # 2. TỰ XÓA TÀI KHOẢN
         elif action == 'delete_self':
             if current_username == 'admin':
-                flash("❌ Tài khoản Quản trị viên gốc không thể tự xóa!", "danger")
+                flash("❌ Tài khoản Admin gốc không thể tự xóa!", "danger")
             else:
-                users = [u for u in users if u['username'] != current_username]
-                UserModel._write(users)
-                session.clear() # Đăng xuất sạch sẽ
-                flash("✅ Tài khoản của bạn đã được xóa vĩnh viễn!", "success")
+                filtered = [u for u in users if u['username'] != current_username]  # ← filtered
+                UserModel._save(filtered)
+                session.clear()
+                flash("✅ Tài khoản của bạn đã được xóa!", "success")
                 return redirect(url_for('login'))
-            
+
         # 3. ADMIN THÊM TÀI KHOẢN MỚI
         elif action == 'add_user':
             if session.get('role') != 'admin':
-                flash("❌ Bạn không có quyền thực hiện chức năng này!", "danger")
+                flash("❌ Bạn không có quyền!", "danger")
             else:
-                new_username = request.form.get('username', '').strip()
-                new_password = request.form.get('password', '').strip()
-                new_role = request.form.get('role', 'nhanvien')
-                new_hoten = request.form.get('ho_ten', '').strip()
-                new_email = request.form.get('email', '').strip()
-                
                 new_username = request.form.get('username', '').strip()
                 new_password = request.form.get('password', '').strip()
                 new_role     = request.form.get('role', 'nhanvien')
                 new_hoten    = request.form.get('ho_ten', '').strip()
                 new_email    = request.form.get('email', '').strip()
-                new_sdt      = request.form.get('so_dien_thoai', '').strip()  # ← thêm
-                new_diachi   = request.form.get('dia_chi', '').strip()        # ← thêm
-                
+                new_sdt      = request.form.get('so_dien_thoai', '').strip()
+                new_diachi   = request.form.get('dia_chi', '').strip()
+
                 if any(u['username'] == new_username for u in users):
                     flash("❌ Tên đăng nhập đã tồn tại!", "danger")
                 else:
@@ -398,27 +391,47 @@ def settings():
                         "role":          new_role,
                         "ho_ten":        new_hoten,
                         "email":         new_email,
-                        "so_dien_thoai": new_sdt,     # ← thêm
-                        "dia_chi":       new_diachi,  # ← thêm
+                        "so_dien_thoai": new_sdt,
+                        "dia_chi":       new_diachi,
                     })
                     UserModel._save(users)
-                    flash(f"✅ Đã thêm tài khoản [{new_username}] thành công!", "success")
-                    
+                    flash(f"✅ Đã thêm tài khoản [{new_username}]!", "success")
+
         # 4. ADMIN XÓA TÀI KHOẢN KHÁC
         elif action == 'delete_user':
             if session.get('role') != 'admin':
-                flash("❌ Bạn không có quyền thực hiện chức năng này!", "danger")
+                flash("❌ Bạn không có quyền!", "danger")
             else:
                 del_username = request.form.get('del_username')
-                if del_username == current_username:
-                    flash("❌ Bạn không thể tự xóa bằng nút này, hãy dùng nút Xóa tài khoản của tôi!", "danger")
+                if del_username == 'admin':
+                    flash("❌ Không thể xóa tài khoản Admin gốc!", "danger")
+                elif del_username == current_username:
+                    flash("❌ Dùng nút Xóa tài khoản của tôi!", "danger")
                 else:
-                    users = [u for u in users if u['username'] != del_username]
-                    UserModel._write(users)
-                    flash(f"✅ Đã xóa tài khoản [{del_username}] khỏi hệ thống!", "success")
+                    filtered = [u for u in users if u['username'] != del_username]  # ← filtered
+                    UserModel._save(filtered)
+                    flash(f"✅ Đã xóa tài khoản [{del_username}]!", "success")
+
+        # 5. ADMIN RESET MẬT KHẨU
+        elif action == 'reset_password':
+            if session.get('role') != 'admin':
+                flash("❌ Bạn không có quyền!", "danger")
+            else:
+                target_username = request.form.get('target_username', '').strip()
+                new_pass        = request.form.get('new_pass', '').strip()
+                if not new_pass:
+                    flash("⚠️ Mật khẩu mới không được để trống!", "danger")
+                else:
+                    for u in users:
+                        if u['username'] == target_username:
+                            u['password'] = UserModel._hash(new_pass)
+                            break
+                    UserModel._save(users)
+                    flash(f"✅ Đã reset mật khẩu cho [{target_username}]!", "success")
 
         return redirect(url_for('settings'))
-        
+
+    return render_template('settings.html', all_users=users, user_info=user_info)
     return render_template('settings.html', all_users=users, user_info=user_info)
 if __name__ == '__main__':
     app.run(debug=True)

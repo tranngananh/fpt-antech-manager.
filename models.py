@@ -284,10 +284,11 @@ class UserModel:
         users  = cls._read()
         hashed = cls._hash(password)
         return next(
-            (u for u in users if u['username'] == username and u['password'] == hashed),
+            (u for u in users
+            if (u['username'] == username or u.get('email') == username)
+            and u['password'] == hashed),
             None
         )
-
     @classmethod
     def create(cls, username, password, role='staff', ho_ten='',
                email='', so_dien_thoai='', dia_chi=''):          # ← thêm

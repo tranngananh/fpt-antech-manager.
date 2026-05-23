@@ -17,6 +17,8 @@
 {% endwith %}
 
 <div class="row g-4">
+
+    <!-- ============ CỘT TRÁI: HỒ SƠ CÁ NHÂN ============ -->
     <div class="col-xl-4 col-lg-5">
         <div class="card shadow-sm border-0 h-100" style="border-radius: 12px;">
             <div class="card-header bg-dark text-white fw-bold" style="border-radius: 12px 12px 0 0;">
@@ -49,12 +51,16 @@
                         <span class="fw-bold">{{ user_info.get('dia_chi', 'Chưa cập nhật') }}</span>
                     </li>
                 </ul>
-                <button class="btn w-100 text-white fw-bold shadow-sm mb-2" style="background-color: #F27024;" data-bs-toggle="modal" data-bs-target="#updateProfileModal">
+
+                <button class="btn w-100 text-white fw-bold shadow-sm mb-2"
+                        style="background-color: #F27024;"
+                        data-bs-toggle="modal" data-bs-target="#updateProfileModal">
                     <i class="fa-solid fa-pen-to-square me-2"></i>Chỉnh sửa hồ sơ
                 </button>
-                
+
                 {% if user_info.username != 'admin' %}
-                <form action="{{ url_for('settings') }}" method="POST" onsubmit="return confirm('⚠️ NGUY HIỂM: Bạn có chắc chắn muốn xóa VĨNH VIỄN tài khoản của mình không?');">
+                <form action="{{ url_for('settings') }}" method="POST"
+                      onsubmit="return confirm('⚠️ NGUY HIỂM: Bạn có chắc chắn muốn xóa VĨNH VIỄN tài khoản của mình không?');">
                     <input type="hidden" name="action" value="delete_self">
                     <button type="submit" class="btn w-100 btn-outline-danger fw-bold shadow-sm">
                         <i class="fa-solid fa-user-xmark me-2"></i>Xóa tài khoản của tôi
@@ -65,12 +71,15 @@
         </div>
     </div>
 
+    <!-- ============ CỘT PHẢI: QUẢN LÝ TÀI KHOẢN (ADMIN) ============ -->
     {% if session.get('role') == 'admin' %}
     <div class="col-xl-8 col-lg-7">
         <div class="card shadow-sm border-0 h-100" style="border-radius: 12px;">
-            <div class="card-header bg-primary text-white fw-bold d-flex justify-content-between align-items-center" style="border-radius: 12px 12px 0 0;">
+            <div class="card-header bg-primary text-white fw-bold d-flex justify-content-between align-items-center"
+                 style="border-radius: 12px 12px 0 0;">
                 <div><i class="fa-solid fa-users-gear me-2"></i>Quản lý tài khoản hệ thống</div>
-                <button class="btn btn-sm btn-light text-primary fw-bold" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                <button class="btn btn-sm btn-light text-primary fw-bold"
+                        data-bs-toggle="modal" data-bs-target="#addUserModal">
                     <i class="fa-solid fa-plus me-1"></i>Thêm tài khoản
                 </button>
             </div>
@@ -92,6 +101,9 @@
                                 <td>
                                     <div class="fw-bold">{{ u.ho_ten }}</div>
                                     <small class="text-muted">{{ u.get('email', 'Chưa cập nhật') }}</small>
+                                    {% if u.get('so_dien_thoai') %}
+                                    <br><small class="text-muted"><i class="fa-solid fa-phone fa-xs me-1"></i>{{ u.so_dien_thoai }}</small>
+                                    {% endif %}
                                 </td>
                                 <td>
                                     {% if u.role == 'admin' %}
@@ -103,16 +115,19 @@
                                     {% endif %}
                                 </td>
                                 <td class="text-center">
-                                    {% if u.username != user_info.username %}
+                                    {% if u.username == user_info.username %}
+                                        <span class="badge bg-light text-muted border">Đang dùng</span>
+                                    {% elif u.username == 'admin' %}
+                                        <span class="badge bg-light text-muted border">Không thể xóa</span>
+                                    {% else %}
                                     <form action="{{ url_for('settings') }}" method="POST" class="d-inline">
                                         <input type="hidden" name="action" value="delete_user">
                                         <input type="hidden" name="del_username" value="{{ u.username }}">
-                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('⚠️ Xóa vĩnh viễn tài khoản {{ u.username }} khỏi hệ thống?');">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger"
+                                                onclick="return confirm('⚠️ Xóa vĩnh viễn tài khoản {{ u.username }} khỏi hệ thống?');">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </form>
-                                    {% else %}
-                                        <span class="badge bg-light text-muted border">Đang dùng</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -124,72 +139,97 @@
         </div>
     </div>
     {% endif %}
+
 </div>
 
+
+<!-- ============ MODAL: CẬP NHẬT HỒ SƠ CÁ NHÂN ============ -->
 <div class="modal fade" id="updateProfileModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content border-0 shadow">
             <div class="modal-header text-white" style="background-color: #F27024;">
-                <h5 class="modal-title fw-bold"><i class="fa-solid fa-user-pen me-2"></i>Cập nhật tài khoản</h5>
+                <h5 class="modal-title fw-bold">
+                    <i class="fa-solid fa-user-pen me-2"></i>Cập nhật tài khoản
+                </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <form action="{{ url_for('settings') }}" method="POST">
                 <input type="hidden" name="action" value="update_profile">
                 <div class="modal-body">
+
                     <div class="mb-3">
                         <label class="form-label fw-bold">Họ và tên hiển thị</label>
-                        <input type="text" name="ho_ten" class="form-control" value="{{ user_info.ho_ten }}">
+                        <input type="text" name="ho_ten" class="form-control"
+                               value="{{ user_info.ho_ten }}">
                     </div>
+
                     <div class="mb-3">
                         <label class="form-label fw-bold">Email liên hệ</label>
-                    <div class="mb-3">
-                    <label class="form-label fw-bold">Số điện thoại</label>
-                    <input type="text" name="so_dien_thoai" class="form-control" value="{{ user_info.get('so_dien_thoai', '') }}" placeholder="0xxxxxxxxx">
+                        <input type="email" name="email" class="form-control"
+                               value="{{ user_info.get('email', '') }}"
+                               placeholder="example@gmail.com">
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Địa chỉ</label>
-                        <input type="text" name="dia_chi" class="form-control" value="{{ user_info.get('dia_chi', '') }}" placeholder="Số nhà, đường, quận, tỉnh...">
-                    </div>
-                    <hr>
-                    <p class="text-muted small mb-2"><i class="fa-solid fa-triangle-exclamation text-warning me-1"></i>Bỏ trống nếu không muốn đổi mật khẩu</p>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Mật khẩu mới</label>
-                        <input type="password" name="new_password" cla
-                        ss="form-control" placeholder="Nhập mật khẩu mới...">
-                    </div>
+
                     <div class="mb-3">
                         <label class="form-label fw-bold">Số điện thoại</label>
-                        <input type="text" name="so_dien_thoai" class="form-control" value="{{ user_info.get('so_dien_thoai', '') }}" placeholder="0xxxxxxxxx">
+                        <input type="text" name="so_dien_thoai" class="form-control"
+                               value="{{ user_info.get('so_dien_thoai', '') }}"
+                               placeholder="0xxxxxxxxx">
                     </div>
+
                     <div class="mb-3">
                         <label class="form-label fw-bold">Địa chỉ</label>
-                        <input type="text" name="dia_chi" class="form-control" value="{{ user_info.get('dia_chi', '') }}" placeholder="Số nhà, đường, quận, tỉnh...">
+                        <input type="text" name="dia_chi" class="form-control"
+                               value="{{ user_info.get('dia_chi', '') }}"
+                               placeholder="Số nhà, đường, quận, tỉnh...">
                     </div>
+
+                    <hr>
+                    <p class="text-muted small mb-2">
+                        <i class="fa-solid fa-triangle-exclamation text-warning me-1"></i>
+                        Bỏ trống nếu không muốn đổi mật khẩu
+                    </p>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Mật khẩu mới</label>
+                        <input type="password" name="new_password" class="form-control"
+                               placeholder="Nhập mật khẩu mới...">
+                    </div>
+
                 </div>
                 <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                    <button type="submit" class="btn text-white fw-bold" style="background-color: #F27024;">Lưu thay đổi</button>
+                    <button type="submit" class="btn text-white fw-bold" style="background-color: #F27024;">
+                        Lưu thay đổi
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
+
+<!-- ============ MODAL: THÊM TÀI KHOẢN MỚI (ADMIN) ============ -->
 {% if session.get('role') == 'admin' %}
 <div class="modal fade" id="addUserModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content border-0 shadow">
             <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title fw-bold"><i class="fa-solid fa-user-plus me-2"></i>Cấp tài khoản mới</h5>
+                <h5 class="modal-title fw-bold">
+                    <i class="fa-solid fa-user-plus me-2"></i>Cấp tài khoản mới
+                </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <form action="{{ url_for('settings') }}" method="POST">
                 <input type="hidden" name="action" value="add_user">
                 <div class="modal-body">
+
                     <div class="mb-3">
                         <label class="form-label fw-bold">Tên đăng nhập *</label>
-                        <input type="text" name="username" class="form-control" required placeholder="Ví dụ: gv_nguyenvana">
+                        <input type="text" name="username" class="form-control" required
+                               placeholder="Ví dụ: gv_nguyenvana">
                     </div>
+
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Mật khẩu *</label>
@@ -204,22 +244,30 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="mb-3">
                         <label class="form-label fw-bold">Họ và tên *</label>
                         <input type="text" name="ho_ten" class="form-control" required>
                     </div>
+
                     <div class="mb-3">
                         <label class="form-label fw-bold">Email</label>
-                        <input type="email" name="email" class="form-control">
+                        <input type="email" name="email" class="form-control"
+                               placeholder="example@gmail.com">
                     </div>
+
                     <div class="mb-3">
                         <label class="form-label fw-bold">Số điện thoại</label>
-                        <input type="text" name="so_dien_thoai" class="form-control" placeholder="0xxxxxxxxx">
+                        <input type="text" name="so_dien_thoai" class="form-control"
+                               placeholder="0xxxxxxxxx">
                     </div>
+
                     <div class="mb-3">
                         <label class="form-label fw-bold">Địa chỉ</label>
-                        <input type="text" name="dia_chi" class="form-control" placeholder="Số nhà, đường, quận, tỉnh...">
+                        <input type="text" name="dia_chi" class="form-control"
+                               placeholder="Số nhà, đường, quận, tỉnh...">
                     </div>
+
                 </div>
                 <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
