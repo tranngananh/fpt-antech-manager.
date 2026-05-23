@@ -235,14 +235,11 @@ def attendance():
             return redirect(url_for('attendance'))
 
         # --- Xóa cột ngày (chỉ admin) ---
-        if action == 'delete_day':
-            if session.get('role') != 'admin':
-                flash("🚫 Chỉ Admin mới được xóa ngày!", "danger")
-            else:
+        if action =='delete_day':
                 ngay_xoa     = request.form.get('ngay_xoa', '').strip()
                 success, msg = DiemDanhModel.delete_day(ngay_xoa)
                 flash(msg, 'success' if success else 'danger')
-            return redirect(url_for('attendance'))
+                return redirect(url_for('attendance'))
 
         # --- Lưu điểm danh ---
         if action == 'save_attendance':
