@@ -68,6 +68,27 @@
                     <div class="text-center mt-4">
                         <span class="text-muted">Chưa có tài khoản?</span> 
                         <a class="toggle-link" onclick="toggleForms()">Đăng ký ngay</a>
+                        </div>
+                        <br>
+                        <span class="text-muted">Quên mật khẩu?</span>
+                        <a class="toggle-link" onclick="toggleForgot()">Liên hệ Admin</a>
+                    </div>
+                    <div id="forgot-form" style="display:none;">
+                        <div class="alert alert-info mt-3">
+                            <i class="fa-solid fa-circle-info me-2"></i>
+                            <strong>Liên hệ Admin để reset mật khẩu:</strong>
+                            <ul class="mt-2 mb-0">
+                                <li>Nhắn tin cho Admin kèm tên đăng nhập của bạn</li>
+                                <li>Admin sẽ reset mật khẩu trong trang Cài đặt</li>
+                        </ul>
+                    </div>
+                    <a class="toggle-link" onclick="toggleForgot()">
+                        <i class="fa-solid fa-arrow-left me-1"></i>Quay lại đăng nhập
+                    </a>
+                </div>
+                    <div class="text-center mt-4">
+                        <span class="text-muted">Chưa có tài khoản?</span> 
+                        <a class="toggle-link" onclick="toggleForms()">Đăng ký ngay</a>
                     </div>
                 </div>
 
@@ -126,17 +147,33 @@
         </div>
     </div>
 
-    <script>
+   <script>
+        // Gọi các phần tử ra trước để tái sử dụng
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const forgotForm = document.getElementById('forgot-form');
+
         function toggleForms() {
-            const loginForm = document.getElementById('login-form');
-            const registerForm = document.getElementById('register-form');
-            
             if (loginForm.style.display === 'none') {
                 loginForm.style.display = 'block';
                 registerForm.style.display = 'none';
+                forgotForm.style.display = 'none'; // Ẩn luôn form quên mật khẩu
             } else {
                 loginForm.style.display = 'none';
                 registerForm.style.display = 'block';
+                forgotForm.style.display = 'none'; // Ẩn luôn form quên mật khẩu
+            }
+        }
+
+        function toggleForgot() {
+            if (forgotForm.style.display === 'none') {
+                loginForm.style.display  = 'none';
+                registerForm.style.display = 'none'; // Ẩn luôn form đăng ký
+                forgotForm.style.display = 'block';
+            } else {
+                loginForm.style.display  = 'block';
+                registerForm.style.display = 'none'; // Ẩn luôn form đăng ký
+                forgotForm.style.display = 'none';
             }
         }
     </script>
