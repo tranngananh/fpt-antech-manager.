@@ -201,7 +201,7 @@ def students():
 
 
 @app.route('/delete-student/<string:student_id>')
-@admin_required
+@login_required
 def delete_student(student_id):
     _, msg = NguoiHocModel.delete(student_id)
     flash(msg, "warning")

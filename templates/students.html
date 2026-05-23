@@ -116,14 +116,11 @@
                                 )">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
-                            
-                            {% if current_role == 'admin' %}
                             <a href="{{ url_for('delete_student', student_id=s.id) }}"
                                class="btn btn-sm btn-outline-danger"
                                onclick="return confirm('Xóa học viên {{ s.ho_va_ten }} khỏi hệ thống?')">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
-                            {% endif %}
                         </td>
                     </tr>
                     {% else %}

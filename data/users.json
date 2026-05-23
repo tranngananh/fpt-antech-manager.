@@ -16,5 +16,14 @@
         "email": "trananh1963haiduong@gmail.com",
         "so_dien_thoai": "0988567993",
         "dia_chi": ""
+    },
+    {
+        "username": "24d400098",
+        "password": "ee4d6820ef342fc99f5160fe49fd507c4c98b91e1c0eb07ae58edb3e2d3514a6",
+        "role": "nhanvien",
+        "ho_ten": "Quản trị",
+        "email": "tranngananh1963hd@gmail.com",
+        "so_dien_thoai": "0868344759",
+        "dia_chi": ""
     }
 ]
