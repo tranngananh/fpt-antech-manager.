@@ -37,16 +37,15 @@
                             <th class="bg-dark text-white" style="position: sticky; left: 60px; z-index: 4; width: 200px; min-width: 200px;">Họ và tên</th>
                             
                             {% for ngay in danh_sach_ngay %}
-                            <th class="text-center" style="min-width: 140px;">
-                                <div class="d-flex justify-content-center align-items-center">
+                                <th class="text-center align-middle">
                                     {{ ngay }}
-                                    {% if current_role == 'admin' %}
-                                    <button type="button" class="btn btn-sm text-danger p-0 ms-2" onclick="confirmDeleteDay('{{ ngay }}')" title="Xóa ngày này">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </button>
-                                    {% endif %}
-                                </div>
-                            </th>
+                                    <a href="javascript:void(0);" 
+                                        class="text-danger ms-2" 
+                                        onclick="confirmDeleteDay('{{ ngay }}')" 
+                                        title="Xóa ngày này">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </th>
                             {% endfor %}
                         </tr>
                     </thead>
@@ -122,20 +121,3 @@
         {% endif %}
     </div>
 </div>
-
-<form id="deleteDayForm" method="POST" action="{{ url_for('attendance') }}" class="d-none">
-    <input type="hidden" name="action" value="delete_day">
-    <input type="hidden" name="ngay_xoa" id="ngay_xoa_input">
-</form>
-
-<script>
-function confirmDeleteDay(ngay) {
-    if(confirm('⚠️ BẠN CÓ CHẮC CHẮN MUỐN XÓA NGÀY NÀY?\n\nXóa cột [' + ngay + '] sẽ làm mất toàn bộ dữ liệu điểm danh của ngày này. Hệ thống sẽ ngay lập tức tính toán lại toàn bộ tình trạng Cảnh báo học vụ của học viên!')) {
-        document.getElementById('ngay_xoa_input').value = ngay;
-        document.getElementById('deleteDayForm').submit();
-    }
-}
-</script>
-{% endif %}
-
-{% endblock %}
