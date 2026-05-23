@@ -22,12 +22,10 @@
             justify-content: center; align-items: center; text-align: center; 
         }
         .form-section { padding: 40px 50px; width: 55%; position: relative; }
-        
-        /* Ẩn hiện form */
         #register-form { display: none; }
+        #forgot-form   { display: none; }
         .toggle-link { color: #F27024; cursor: pointer; font-weight: bold; text-decoration: none; }
         .toggle-link:hover { text-decoration: underline; }
-
         @media (max-width: 768px) {
             .login-banner { display: none; }
             .form-section { width: 100%; padding: 40px 30px; }
@@ -35,142 +33,151 @@
     </style>
 </head>
 <body>
-    <div class="container d-flex justify-content-center p-3">
-        <div class="login-wrapper">
-            <div class="login-banner">
-                <i class="fa-solid fa-graduation-cap mb-3" style="font-size: 5rem;"></i>
-                <h2 class="fw-bold mb-3">FPT ANTECH</h2>
-                <p class="fs-6 opacity-75">Hệ thống Quản lý Học vụ & Điểm danh</p>
-            </div>
-            
-            <div class="form-section">
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                            <div class="alert alert-{{ category }} py-2"><i class="fa-solid fa-circle-info me-2"></i>{{ message }}</div>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
+<div class="container d-flex justify-content-center p-3">
+    <div class="login-wrapper">
 
-                <div id="login-form">
-                    <h3 class="fw-bold mb-4 text-center text-secondary">ĐĂNG NHẬP</h3>
-                    <form action="{{ url_for('login') }}" method="POST">
-                        <div class="mb-3">
-                            <label class="fw-bold text-secondary small">Tên đăng nhập / Email <span class="text-danger">*</span></label>
-                            <input type="text" name="username" class="form-control form-control-lg bg-light" required autofocus>
+        <!-- BANNER TRÁI -->
+        <div class="login-banner">
+            <i class="fa-solid fa-graduation-cap mb-3" style="font-size: 5rem;"></i>
+            <h2 class="fw-bold mb-3">FPT ANTECH</h2>
+            <p class="fs-6 opacity-75">Hệ thống Quản lý Học vụ & Điểm danh</p>
+        </div>
+
+        <!-- FORM PHẢI -->
+        <div class="form-section">
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} py-2">
+                            <i class="fa-solid fa-circle-info me-2"></i>{{ message }}
                         </div>
-                        <div class="mb-4">
-                            <label class="fw-bold text-secondary small">Mật khẩu <span class="text-danger">*</span></label>
-                            <input type="password" name="password" class="form-control form-control-lg bg-light" required>
-                        </div>
-                        <button type="submit" class="btn btn-lg w-100 text-white fw-bold shadow-sm" style="background-color: #F27024;">Đăng nhập</button>
-                    </form>
-                    <div class="text-center mt-4">
-                        <span class="text-muted">Quên mật khẩu?</span>
-                        <a class="toggle-link" onclick="toggleForgot()">Liên hệ Admin</a>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <!-- ===== FORM ĐĂNG NHẬP ===== -->
+            <div id="login-form">
+                <h3 class="fw-bold mb-4 text-center text-secondary">ĐĂNG NHẬP</h3>
+                <form action="{{ url_for('login') }}" method="POST">
+                    <div class="mb-3">
+                        <label class="fw-bold text-secondary small">Tên đăng nhập / Email <span class="text-danger">*</span></label>
+                        <input type="text" name="username" class="form-control form-control-lg bg-light" required autofocus>
                     </div>
-                    <div id="forgot-form" style="display:none;">
-                        <div class="alert alert-info mt-3">
-                            <i class="fa-solid fa-circle-info me-2"></i>
-                            <strong>Liên hệ Admin để reset mật khẩu:</strong>
-                            <ul class="mt-2 mb-0">
-                                <li>Nhắn tin cho Admin kèm tên đăng nhập của bạn</li>
-                                <li>Admin sẽ reset mật khẩu trong trang Cài đặt</li>
-                        </ul>
+                    <div class="mb-4">
+                        <label class="fw-bold text-secondary small">Mật khẩu <span class="text-danger">*</span></label>
+                        <input type="password" name="password" class="form-control form-control-lg bg-light" required>
                     </div>
+                    <button type="submit" class="btn btn-lg w-100 text-white fw-bold shadow-sm"
+                            style="background-color: #F27024;">Đăng nhập</button>
+                </form>
+                <div class="text-center mt-4">
+                    <span class="text-muted">Quên mật khẩu?</span>
+                    <a class="toggle-link" onclick="toggleForgot()">Liên hệ Admin</a>
+                </div>
+                <div class="text-center mt-2">
+                    <span class="text-muted">Chưa có tài khoản?</span>
+                    <a class="toggle-link" onclick="toggleForms()">Đăng ký ngay</a>
+                </div>
+            </div>
+
+            <!-- ===== FORM QUÊN MẬT KHẨU ===== -->
+            <div id="forgot-form">
+                <h3 class="fw-bold mb-4 text-center text-secondary">QUÊN MẬT KHẨU</h3>
+                <div class="alert alert-info">
+                    <i class="fa-solid fa-circle-info me-2"></i>
+                    <strong>Liên hệ Admin để reset mật khẩu:</strong>
+                    <ul class="mt-2 mb-0">
+                        <li>Nhắn tin cho Admin kèm tên đăng nhập của bạn</li>
+                        <li>Admin sẽ reset mật khẩu trong trang Cài đặt</li>
+                    </ul>
+                </div>
+                <div class="text-center mt-3">
                     <a class="toggle-link" onclick="toggleForgot()">
                         <i class="fa-solid fa-arrow-left me-1"></i>Quay lại đăng nhập
                     </a>
                 </div>
-                        <span class="text-muted">Chưa có tài khoản?</span> 
-                        <a class="toggle-link" onclick="toggleForms()">Đăng ký ngay</a>
-                    </div>
-                </div>
-
-                <div id="register-form">
-                    <h3 class="fw-bold mb-4 text-center text-secondary">ĐĂNG KÝ TÀI KHOẢN</h3>
-                    <form action="{{ url_for('register') }}" method="POST">
-                        <div class="row g-2">
-                            <div class="col-md-6 mb-2">
-                                <label class="fw-bold text-secondary small">Tên đăng nhập *</label>
-                                <input type="text" name="username" class="form-control bg-light" required>
-                            </div>
-                            <div class="col-md-6 mb-2">
-                                <label class="fw-bold text-secondary small">Họ và tên *</label>
-                                <input type="text" name="ho_ten" class="form-control bg-light" required>
-                            </div>
-                            <div class="col-md-6 mb-2">
-                                <label class="fw-bold text-secondary small">Email *</label>
-                                <input type="email" name="email" class="form-control bg-light" required>
-                            </div>
-                            <div class="col-md-6 mb-2">
-                                <label class="fw-bold text-secondary small">Số điện thoại *</label>
-                                <input type="text" name="sdt" class="form-control bg-light" required>
-                            </div>
-                            <div class="col-md-6 mb-2">
-                                <label class="fw-bold text-secondary small">Giới tính</label>
-                                <select name="gioi_tinh" class="form-select bg-light">
-                                    <option value="Nam">Nam</option>
-                                    <option value="Nữ">Nữ</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 mb-2">
-                                <label class="fw-bold text-secondary small">Chức vụ *</label>
-                                <select name="role" class="form-select bg-light">
-                                    <option value="giaovien">Giáo viên</option>
-                                    <option value="nhanvien">Nhân viên văn phòng</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 mb-2">
-                                <label class="fw-bold text-secondary small">Mật khẩu *</label>
-                                <input type="password" name="password" class="form-control bg-light" required>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <label class="fw-bold text-secondary small">Nhập lại MK *</label>
-                                <input type="password" name="confirm_password" class="form-control bg-light" required>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn w-100 text-white fw-bold shadow-sm" style="background-color: #F27024;">Đăng ký</button>
-                    </form>
-                    <div class="text-center mt-3">
-                        <span class="text-muted">Đã có tài khoản?</span> 
-                        <a class="toggle-link" onclick="toggleForms()">Quay lại Đăng nhập</a>
-                    </div>
-                </div>
-
             </div>
+
+            <!-- ===== FORM ĐĂNG KÝ ===== -->
+            <div id="register-form">
+                <h3 class="fw-bold mb-4 text-center text-secondary">ĐĂNG KÝ TÀI KHOẢN</h3>
+                <form action="{{ url_for('register') }}" method="POST">
+                    <div class="row g-2">
+                        <div class="col-md-6 mb-2">
+                            <label class="fw-bold text-secondary small">Tên đăng nhập *</label>
+                            <input type="text" name="username" class="form-control bg-light" required>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="fw-bold text-secondary small">Họ và tên *</label>
+                            <input type="text" name="ho_ten" class="form-control bg-light" required>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="fw-bold text-secondary small">Email *</label>
+                            <input type="email" name="email" class="form-control bg-light" required>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="fw-bold text-secondary small">Số điện thoại *</label>
+                            <input type="text" name="sdt" class="form-control bg-light" required>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="fw-bold text-secondary small">Giới tính</label>
+                            <select name="gioi_tinh" class="form-select bg-light">
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="fw-bold text-secondary small">Chức vụ *</label>
+                            <select name="role" class="form-select bg-light">
+                                <option value="giaovien">Giáo viên</option>
+                                <option value="nhanvien">Nhân viên văn phòng</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="fw-bold text-secondary small">Mật khẩu *</label>
+                            <input type="password" name="password" class="form-control bg-light" required>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label class="fw-bold text-secondary small">Nhập lại MK *</label>
+                            <input type="password" name="confirm_password" class="form-control bg-light" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn w-100 text-white fw-bold shadow-sm"
+                            style="background-color: #F27024;">Đăng ký</button>
+                </form>
+                <div class="text-center mt-3">
+                    <span class="text-muted">Đã có tài khoản?</span>
+                    <a class="toggle-link" onclick="toggleForms()">Quay lại Đăng nhập</a>
+                </div>
+            </div>
+
         </div>
     </div>
+</div>
 
-   <script>
-        // Gọi các phần tử ra trước để tái sử dụng
-        const loginForm = document.getElementById('login-form');
-        const registerForm = document.getElementById('register-form');
-        const forgotForm = document.getElementById('forgot-form');
+<script>
+    const loginForm    = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const forgotForm   = document.getElementById('forgot-form');
 
-        function toggleForms() {
-            if (loginForm.style.display === 'none') {
-                loginForm.style.display = 'block';
-                registerForm.style.display = 'none';
-                forgotForm.style.display = 'none'; // Ẩn luôn form quên mật khẩu
-            } else {
-                loginForm.style.display = 'none';
-                registerForm.style.display = 'block';
-                forgotForm.style.display = 'none'; // Ẩn luôn form quên mật khẩu
-            }
+    function toggleForms() {
+        loginForm.style.display    = loginForm.style.display === 'none' ? 'block' : 'none';
+        registerForm.style.display = registerForm.style.display === 'none' ? 'block' : 'none';
+        forgotForm.style.display   = 'none';
+    }
+
+    function toggleForgot() {
+        if (forgotForm.style.display === 'none') {
+            loginForm.style.display    = 'none';
+            registerForm.style.display = 'none';
+            forgotForm.style.display   = 'block';
+        } else {
+            loginForm.style.display    = 'block';
+            registerForm.style.display = 'none';
+            forgotForm.style.display   = 'none';
         }
-
-        function toggleForgot() {
-            if (forgotForm.style.display === 'none') {
-                loginForm.style.display  = 'none';
-                registerForm.style.display = 'none'; // Ẩn luôn form đăng ký
-                forgotForm.style.display = 'block';
-            } else {
-                loginForm.style.display  = 'block';
-                registerForm.style.display = 'none'; // Ẩn luôn form đăng ký
-                forgotForm.style.display = 'none';
-            }
-        }
-    </script>
+    }
+</script>
 </body>
 </html>
