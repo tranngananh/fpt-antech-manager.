@@ -432,6 +432,5 @@ def settings():
         return redirect(url_for('settings'))
 
     return render_template('settings.html', all_users=users, user_info=user_info)
-    return render_template('settings.html', all_users=users, user_info=user_info)
 if __name__ == '__main__':
     app.run(debug=True)
