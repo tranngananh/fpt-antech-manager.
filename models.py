@@ -76,7 +76,7 @@ class DataEngine:
             vang = target['so_ngay_vang']
             if vang >= 5:
                 target['canh_bao'] = "Cảnh báo nghỉ học"
-            elif vang >= 3:
+            elif 5> vang >= 3:
                 target['canh_bao'] = "Cảnh báo học tập"
             else:
                 target['canh_bao'] = "Không"
@@ -252,10 +252,13 @@ class UserModel:
         if not os.path.exists(cls.USERS_FILE) or os.stat(cls.USERS_FILE).st_size == 0:
             default = [
                 {
-                    "username": "admin",
-                    "password": cls._hash("admin123"),
-                    "role":     "admin",
-                    "ho_ten":   "Quản trị viên",
+                    "username":      "admin",
+                    "password":      cls._hash("admin123"),
+                    "role":          "admin",
+                    "ho_ten":        "Quản trị viên",
+                    "email":         "",  # ← thêm
+                    "so_dien_thoai": "",  # ← thêm
+                    "dia_chi":       "",  # ← thêm
                 }
             ]
             with open(cls.USERS_FILE, 'w', encoding='utf-8') as f:
@@ -286,17 +289,21 @@ class UserModel:
         )
 
     @classmethod
-    def create(cls, username, password, role='staff', ho_ten=''):
+    def create(cls, username, password, role='staff', ho_ten='',
+               email='', so_dien_thoai='', dia_chi=''):          # ← thêm
         if not username or not password:
             return False, "⚠️ Không được để trống tên đăng nhập và mật khẩu!"
         users = cls._read()
         if any(u['username'] == username for u in users):
             return False, "❌ Tên đăng nhập đã tồn tại!"
         users.append({
-            "username": username,
-            "password": cls._hash(password),
-            "role":     role,
-            "ho_ten":   ho_ten,
+            "username":      username,
+            "password":      cls._hash(password),
+            "role":          role,
+            "ho_ten":        ho_ten,
+            "email":         email,         # ← thêm
+            "so_dien_thoai": so_dien_thoai, # ← thêm
+            "dia_chi":       dia_chi,       # ← thêm
         })
         cls._save(users)
         return True, f"✅ Đã tạo tài khoản {username} ({role})!"

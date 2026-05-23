@@ -340,21 +340,23 @@ def settings():
         
         # 1. XỬ LÝ CẬP NHẬT THÔNG TIN CÁ NHÂN
         if action == 'update_profile':
-            ho_ten_moi = request.form.get('ho_ten', '').strip()
-            email_moi = request.form.get('email', '').strip()
-            mk_moi = request.form.get('new_password', '').strip()
+            ho_ten_moi  = request.form.get('ho_ten', '').strip()
+            email_moi   = request.form.get('email', '').strip()
+            sdt_moi     = request.form.get('so_dien_thoai', '').strip()  # ← thêm
+            dia_chi_moi = request.form.get('dia_chi', '').strip()        # ← thêm
+            mk_moi      = request.form.get('new_password', '').strip()
             
             for u in users:
                 if u['username'] == current_username:
-                    u['ho_ten'] = ho_ten_moi
-                    u['email'] = email_moi
+                    u['ho_ten']        = ho_ten_moi
+                    u['email']         = email_moi
+                    u['so_dien_thoai'] = sdt_moi      # ← thêm
+                    u['dia_chi']       = dia_chi_moi  # ← thêm
                     if mk_moi:
                         u['password'] = UserModel._hash(mk_moi)
-                    
-                    # Cập nhật tên hiển thị mới lên góc trên cùng màn hình
-                    session['ho_ten'] = ho_ten_moi 
+                    session['ho_ten'] = ho_ten_moi
                     break
-            UserModel._write(users)
+            UserModel._save(users)
             flash("✅ Cập nhật thông tin cá nhân thành công!", "success")
             
         # 2. XỬ LÝ TỰ XÓA TÀI KHOẢN
@@ -379,17 +381,27 @@ def settings():
                 new_hoten = request.form.get('ho_ten', '').strip()
                 new_email = request.form.get('email', '').strip()
                 
+                new_username = request.form.get('username', '').strip()
+                new_password = request.form.get('password', '').strip()
+                new_role     = request.form.get('role', 'nhanvien')
+                new_hoten    = request.form.get('ho_ten', '').strip()
+                new_email    = request.form.get('email', '').strip()
+                new_sdt      = request.form.get('so_dien_thoai', '').strip()  # ← thêm
+                new_diachi   = request.form.get('dia_chi', '').strip()        # ← thêm
+                
                 if any(u['username'] == new_username for u in users):
                     flash("❌ Tên đăng nhập đã tồn tại!", "danger")
                 else:
                     users.append({
-                        "username": new_username,
-                        "password": UserModel._hash(new_password),
-                        "role": new_role,
-                        "ho_ten": new_hoten,
-                        "email": new_email
+                        "username":      new_username,
+                        "password":      UserModel._hash(new_password),
+                        "role":          new_role,
+                        "ho_ten":        new_hoten,
+                        "email":         new_email,
+                        "so_dien_thoai": new_sdt,     # ← thêm
+                        "dia_chi":       new_diachi,  # ← thêm
                     })
-                    UserModel._write(users)
+                    UserModel._save(users)
                     flash(f"✅ Đã thêm tài khoản [{new_username}] thành công!", "success")
                     
         # 4. ADMIN XÓA TÀI KHOẢN KHÁC

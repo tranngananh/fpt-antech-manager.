@@ -86,8 +86,8 @@ for item in raw_data:
     # --- Cảnh báo (logic đúng thứ tự) ---
     if so_ngay_vang >= 5:
         canh_bao = "Cảnh báo nghỉ học"
-    elif so_ngay_di_hoc <= 4:          # vắng 6-9 ngày đã bắt bị lọc trên
-        canh_bao = "Cảnh báo học tập"  # vắng đúng 5 ngày còn lại xử lý ở đây
+    elif 5 > so_ngay_vang >=3:          
+        canh_bao = "Cảnh báo học tập"  
     else:
         canh_bao = "Không"
 
