@@ -93,7 +93,7 @@
                     </ul>
                 </div>
                 <div class="text-center mt-3">
-                    <a class="toggle-link" onclick="toggleForgot()">
+                    <a class="toggle-link" onclick="showForm('login')">
                         <i class="fa-solid fa-arrow-left me-1"></i>Quay lại đăng nhập
                     </a>
                 </div>
@@ -148,36 +148,36 @@
                 </form>
                 <div class="text-center mt-3">
                     <span class="text-muted">Đã có tài khoản?</span>
-                    <a class="toggle-link" onclick="toggleForms()">Quay lại Đăng nhập</a>
+                    <a class="toggle-link" onclick="showForm('login')">Quay lại Đăng nhập</a>
                 </div>
             </div>
 
         </div>
     </div>
 </div>
-
 <script>
     const loginForm    = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
     const forgotForm   = document.getElementById('forgot-form');
 
-    function toggleForms() {
-        loginForm.style.display    = loginForm.style.display === 'none' ? 'block' : 'none';
-        registerForm.style.display = registerForm.style.display === 'none' ? 'block' : 'none';
-        forgotForm.style.display   = 'none';
+    function showForm(show) {
+        loginForm.style.display    = (show === 'login')    ? 'block' : 'none';
+        registerForm.style.display = (show === 'register') ? 'block' : 'none';
+        forgotForm.style.display   = (show === 'forgot')   ? 'block' : 'none';
     }
 
-    function toggleForgot() {
-        if (forgotForm.style.display === 'none') {
-            loginForm.style.display    = 'none';
-            registerForm.style.display = 'none';
-            forgotForm.style.display   = 'block';
-        } else {
-            loginForm.style.display    = 'block';
-            registerForm.style.display = 'none';
-            forgotForm.style.display   = 'none';
-        }
-    }
+    function toggleForms()  { showForm('register'); }
+    function toggleForgot() { showForm('forgot');   }
+
+    // Nếu có flash message lỗi đăng ký thì mở lại form đăng ký
+    document.addEventListener('DOMContentLoaded', function() {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function(a) {
+            if (a.classList.contains('alert-danger')) {
+                showForm('login');
+            }
+        });
+    });
 </script>
 </body>
 </html>
