@@ -25,5 +25,32 @@
         "email": "tranngananh1963hd@gmail.com",
         "so_dien_thoai": "0868344759",
         "dia_chi": ""
-    }
+    },
+    {
+    "username": "Vũ Dương",
+    "password": "73e9365022878f8892f254e4f50186937cf7e0f2f3c7ea5191aa15da2a9fa57f",
+    "role": "giaovien",
+    "ho_ten": "Vũ Tuấn Tùng Dương",
+    "email": "",
+    "so_den_thoai": "",
+    "dia_chi": ""
+  },
+  {
+    "username": "Rossy",
+    "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+    "role": "nhanvien",
+    "ho_ten": "Nguyễn Thị Hồng Nhung",
+    "email": "",
+    "so_den_thoai": "",
+    "dia_chi": ""
+  },
+  {
+    "username": "Vmeow",
+    "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+    "role": "nhanvien",
+    "ho_ten": "Nguyễn Thị Trà Vy",
+    "email": "",
+    "so_den_thoai": "",
+    "dia_chi": ""
+  }
 ]

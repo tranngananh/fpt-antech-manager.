@@ -1,7 +1,9 @@
 import json 
 import random
 import os
-# 1. Dữ liệu gốc (Đã thay toàn bộ warning -> canh_bao, attendance -> diem_danh)
+import hashlib
+from pymongo import MongoClient
+
 raw_data = [ 
     { "id": "001", "ho_va_ten": "Nguyễn Văn A", "dan_toc": "Kinh", "gioi_tinh": "Nam", "ngay_sinh": "15/04/2003", "so_dien_thoai": "0987654001", "email": "nguyenvana01@gmail.com", "dia_chi": "144 Xuân Thủy, Hà Nội", "khoa_hoc": "full-stack", "lop_hoc": "FS001","diem_danh": 8 },
   { "id": "002", "ho_va_ten": "Trần Thị B", "dan_toc": "Kinh", "gioi_tinh": "Nữ", "ngay_sinh": "22/09/2004", "so_dien_thoai": "0987654002","email": "tranthib02@gmail.com", "dia_chi": "1 Đại Cồ Việt, Hà Nội", "khoa_hoc": "front-end","lop_hoc":"FE001", "diem_danh": 9 },
@@ -78,7 +80,6 @@ ngay_hoc_list = [
 # ============================================================
 # BƯỚC 1: Tạo dữ liệu nguoi_hoc, khoa_hoc, canh_bao
 # (Mỗi học viên chỉ được xử lý 1 lần ở đây)
-# ============================================================
 for item in raw_data:
     so_ngay_di_hoc = item["diem_danh"]
     so_ngay_vang   = TONG_SO_NGAY - so_ngay_di_hoc
@@ -121,9 +122,7 @@ for item in raw_data:
         "canh_bao": canh_bao,
     })
 
-# ============================================================
 # BƯỚC 2: Tạo điểm danh (tách riêng để tránh lặp lồng nhau)
-# ============================================================
 diem_danh_theo_ngay = {ngay: [] for ngay in ngay_hoc_list}
 
 for item in raw_data:

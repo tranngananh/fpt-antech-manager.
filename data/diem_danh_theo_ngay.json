@@ -10,13 +10,13 @@
             "id": "002",
             "ho_va_ten": "Trần Thị B",
             "lop_hoc": "FE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "003",
             "ho_va_ten": "Bùi Văn C",
             "lop_hoc": "BE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "004",
@@ -28,7 +28,7 @@
             "id": "005",
             "ho_va_ten": "Bùi Văn E",
             "lop_hoc": "FE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "006",
@@ -46,7 +46,7 @@
             "id": "008",
             "ho_va_ten": "Đỗ Thị H",
             "lop_hoc": "FE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "009",
@@ -76,7 +76,7 @@
             "id": "013",
             "ho_va_ten": "Bùi Văn M",
             "lop_hoc": "G001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "014",
@@ -160,7 +160,7 @@
             "id": "027",
             "ho_va_ten": "Ngô Thanh Tùng",
             "lop_hoc": "BE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "028",
@@ -220,13 +220,13 @@
             "id": "037",
             "ho_va_ten": "Đỗ Thúy Quỳnh",
             "lop_hoc": "FE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "038",
             "ho_va_ten": "Ngô Tiến Đạt",
             "lop_hoc": "BE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "039",
@@ -280,7 +280,7 @@
             "id": "047",
             "ho_va_ten": "Vũ Thanh Tùng",
             "lop_hoc": "BE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "048",
@@ -298,7 +298,7 @@
             "id": "050",
             "ho_va_ten": "Nguyễn Thị Lan Anh",
             "lop_hoc": "BE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "051",
@@ -334,7 +334,7 @@
             "id": "056",
             "ho_va_ten": "Phạm Quốc Huy",
             "lop_hoc": "FS001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "057",
@@ -366,7 +366,7 @@
             "id": "001",
             "ho_va_ten": "Nguyễn Văn A",
             "lop_hoc": "FS001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "002",
@@ -396,7 +396,7 @@
             "id": "006",
             "ho_va_ten": "Mạc Thị F",
             "lop_hoc": "FS002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "007",
@@ -504,7 +504,7 @@
             "id": "024",
             "ho_va_ten": "Lê Hoàng Anh",
             "lop_hoc": "BE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "025",
@@ -522,7 +522,7 @@
             "id": "027",
             "ho_va_ten": "Ngô Thanh Tùng",
             "lop_hoc": "BE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "028",
@@ -552,7 +552,7 @@
             "id": "032",
             "ho_va_ten": "Trần Minh Đức",
             "lop_hoc": "BE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "033",
@@ -648,7 +648,7 @@
             "id": "048",
             "ho_va_ten": "Bùi Hải Yến",
             "lop_hoc": "FE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "049",
@@ -660,7 +660,7 @@
             "id": "050",
             "ho_va_ten": "Nguyễn Thị Lan Anh",
             "lop_hoc": "BE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "051",
@@ -684,7 +684,7 @@
             "id": "054",
             "ho_va_ten": "Nguyễn Văn An",
             "lop_hoc": "FE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "055",
@@ -696,7 +696,7 @@
             "id": "056",
             "ho_va_ten": "Phạm Quốc Huy",
             "lop_hoc": "FS001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "057",
@@ -728,7 +728,7 @@
             "id": "001",
             "ho_va_ten": "Nguyễn Văn A",
             "lop_hoc": "FS001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "002",
@@ -806,7 +806,7 @@
             "id": "014",
             "ho_va_ten": "Đỗ Thị N",
             "lop_hoc": "BE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "015",
@@ -818,13 +818,13 @@
             "id": "016",
             "ho_va_ten": "Nguyễn Trần Thanh Ngân",
             "lop_hoc": "FE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "017",
             "ho_va_ten": "Nguyễn Thị Thu Nga",
             "lop_hoc": "G002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "018",
@@ -866,7 +866,7 @@
             "id": "024",
             "ho_va_ten": "Lê Hoàng Anh",
             "lop_hoc": "BE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "025",
@@ -878,7 +878,7 @@
             "id": "026",
             "ho_va_ten": "Vũ Đức Thành",
             "lop_hoc": "FS001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "027",
@@ -890,7 +890,7 @@
             "id": "028",
             "ho_va_ten": "Bùi Thị Phương",
             "lop_hoc": "FE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "029",
@@ -914,7 +914,7 @@
             "id": "032",
             "ho_va_ten": "Trần Minh Đức",
             "lop_hoc": "BE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "033",
@@ -950,25 +950,25 @@
             "id": "038",
             "ho_va_ten": "Ngô Tiến Đạt",
             "lop_hoc": "BE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "039",
             "ho_va_ten": "Bùi Minh Tú",
             "lop_hoc": "FS002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "040",
             "ho_va_ten": "Đặng Hồng Hạnh",
             "lop_hoc": "FE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "041",
             "ho_va_ten": "Phùng Thanh Độ",
             "lop_hoc": "FE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "042",
@@ -992,13 +992,13 @@
             "id": "045",
             "ho_va_ten": "Phạm Gia Hưng",
             "lop_hoc": "BE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "046",
             "ho_va_ten": "Đỗ Ngọc Anh",
             "lop_hoc": "FS002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "047",
@@ -1010,7 +1010,7 @@
             "id": "048",
             "ho_va_ten": "Bùi Hải Yến",
             "lop_hoc": "FE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "049",
@@ -1046,7 +1046,7 @@
             "id": "054",
             "ho_va_ten": "Nguyễn Văn An",
             "lop_hoc": "FE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "055",
@@ -1064,7 +1064,7 @@
             "id": "057",
             "ho_va_ten": "Đỗ Minh Trang",
             "lop_hoc": "FE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "058",
@@ -1096,7 +1096,7 @@
             "id": "002",
             "ho_va_ten": "Trần Thị B",
             "lop_hoc": "FE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "003",
@@ -1114,13 +1114,13 @@
             "id": "005",
             "ho_va_ten": "Bùi Văn E",
             "lop_hoc": "FE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "006",
             "ho_va_ten": "Mạc Thị F",
             "lop_hoc": "FS002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "007",
@@ -1144,7 +1144,7 @@
             "id": "010",
             "ho_va_ten": "Nguyễn Thị J",
             "lop_hoc": "FS001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "011",
@@ -1168,7 +1168,7 @@
             "id": "014",
             "ho_va_ten": "Đỗ Thị N",
             "lop_hoc": "BE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "015",
@@ -1240,13 +1240,13 @@
             "id": "026",
             "ho_va_ten": "Vũ Đức Thành",
             "lop_hoc": "FS001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "027",
             "ho_va_ten": "Ngô Thanh Tùng",
             "lop_hoc": "BE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "028",
@@ -1276,7 +1276,7 @@
             "id": "032",
             "ho_va_ten": "Trần Minh Đức",
             "lop_hoc": "BE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "033",
@@ -1294,7 +1294,7 @@
             "id": "035",
             "ho_va_ten": "Vũ Thị Mai",
             "lop_hoc": "BE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "036",
@@ -1306,13 +1306,13 @@
             "id": "037",
             "ho_va_ten": "Đỗ Thúy Quỳnh",
             "lop_hoc": "FE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "038",
             "ho_va_ten": "Ngô Tiến Đạt",
             "lop_hoc": "BE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "039",
@@ -1330,7 +1330,7 @@
             "id": "041",
             "ho_va_ten": "Phùng Thanh Độ",
             "lop_hoc": "FE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "042",
@@ -1378,7 +1378,7 @@
             "id": "049",
             "ho_va_ten": "Hoàng Đức Mạnh",
             "lop_hoc": "BE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "050",
@@ -1420,25 +1420,25 @@
             "id": "056",
             "ho_va_ten": "Phạm Quốc Huy",
             "lop_hoc": "FS001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "057",
             "ho_va_ten": "Đỗ Minh Trang",
             "lop_hoc": "FE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "058",
             "ho_va_ten": "Hoàng Cửu Bảo",
             "lop_hoc": "BE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "059",
             "ho_va_ten": "Vũ Khánh Linh",
             "lop_hoc": "FS002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "060",
@@ -1476,19 +1476,19 @@
             "id": "005",
             "ho_va_ten": "Bùi Văn E",
             "lop_hoc": "FE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "006",
             "ho_va_ten": "Mạc Thị F",
             "lop_hoc": "FS002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "007",
             "ho_va_ten": "Vũ Văn G",
             "lop_hoc": "BE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "008",
@@ -1530,7 +1530,7 @@
             "id": "014",
             "ho_va_ten": "Đỗ Thị N",
             "lop_hoc": "BE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "015",
@@ -1542,7 +1542,7 @@
             "id": "016",
             "ho_va_ten": "Nguyễn Trần Thanh Ngân",
             "lop_hoc": "FE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "017",
@@ -1554,7 +1554,7 @@
             "id": "018",
             "ho_va_ten": "Nguyễn Bùi Hải Nam",
             "lop_hoc": "BE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "019",
@@ -1614,13 +1614,13 @@
             "id": "028",
             "ho_va_ten": "Bùi Thị Phương",
             "lop_hoc": "FE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "029",
             "ho_va_ten": "Hoàng Gia Bảo",
             "lop_hoc": "FS002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "030",
@@ -1644,7 +1644,7 @@
             "id": "033",
             "ho_va_ten": "Lê Thùy Linh",
             "lop_hoc": "FS001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "034",
@@ -1668,7 +1668,7 @@
             "id": "037",
             "ho_va_ten": "Đỗ Thúy Quỳnh",
             "lop_hoc": "FE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "038",
@@ -1680,7 +1680,7 @@
             "id": "039",
             "ho_va_ten": "Bùi Minh Tú",
             "lop_hoc": "FS002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "040",
@@ -1716,7 +1716,7 @@
             "id": "045",
             "ho_va_ten": "Phạm Gia Hưng",
             "lop_hoc": "BE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "046",
@@ -1746,7 +1746,7 @@
             "id": "050",
             "ho_va_ten": "Nguyễn Thị Lan Anh",
             "lop_hoc": "BE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "051",
@@ -1794,7 +1794,7 @@
             "id": "058",
             "ho_va_ten": "Hoàng Cửu Bảo",
             "lop_hoc": "BE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "059",
@@ -1862,13 +1862,13 @@
             "id": "009",
             "ho_va_ten": "Đào Văn I",
             "lop_hoc": "G002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "010",
             "ho_va_ten": "Nguyễn Thị J",
             "lop_hoc": "FS001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "011",
@@ -1886,7 +1886,7 @@
             "id": "013",
             "ho_va_ten": "Bùi Văn M",
             "lop_hoc": "G001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "014",
@@ -1898,7 +1898,7 @@
             "id": "015",
             "ho_va_ten": "Đinh Văn O",
             "lop_hoc": "FS001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "016",
@@ -1916,7 +1916,7 @@
             "id": "018",
             "ho_va_ten": "Nguyễn Bùi Hải Nam",
             "lop_hoc": "BE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "019",
@@ -1928,13 +1928,13 @@
             "id": "020",
             "ho_va_ten": "Đặng Trịnh Minh Ngọc",
             "lop_hoc": "FS002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "021",
             "ho_va_ten": "Nguyễn Quốc Huy",
             "lop_hoc": "BE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "022",
@@ -1958,7 +1958,7 @@
             "id": "025",
             "ho_va_ten": "Đỗ Minh Châu",
             "lop_hoc": "FE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "026",
@@ -1970,7 +1970,7 @@
             "id": "027",
             "ho_va_ten": "Ngô Thanh Tùng",
             "lop_hoc": "BE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "028",
@@ -1982,7 +1982,7 @@
             "id": "029",
             "ho_va_ten": "Hoàng Gia Bảo",
             "lop_hoc": "FS002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "030",
@@ -2018,7 +2018,7 @@
             "id": "035",
             "ho_va_ten": "Vũ Thị Mai",
             "lop_hoc": "BE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "036",
@@ -2030,7 +2030,7 @@
             "id": "037",
             "ho_va_ten": "Đỗ Thúy Quỳnh",
             "lop_hoc": "FE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "038",
@@ -2054,7 +2054,7 @@
             "id": "041",
             "ho_va_ten": "Phùng Thanh Độ",
             "lop_hoc": "FE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "042",
@@ -2078,7 +2078,7 @@
             "id": "045",
             "ho_va_ten": "Phạm Gia Hưng",
             "lop_hoc": "BE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "046",
@@ -2090,13 +2090,13 @@
             "id": "047",
             "ho_va_ten": "Vũ Thanh Tùng",
             "lop_hoc": "BE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "048",
             "ho_va_ten": "Bùi Hải Yến",
             "lop_hoc": "FE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "049",
@@ -2108,7 +2108,7 @@
             "id": "050",
             "ho_va_ten": "Nguyễn Thị Lan Anh",
             "lop_hoc": "BE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "051",
@@ -2162,7 +2162,7 @@
             "id": "059",
             "ho_va_ten": "Vũ Khánh Linh",
             "lop_hoc": "FS002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "060",
@@ -2188,7 +2188,7 @@
             "id": "003",
             "ho_va_ten": "Bùi Văn C",
             "lop_hoc": "BE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "004",
@@ -2200,7 +2200,7 @@
             "id": "005",
             "ho_va_ten": "Bùi Văn E",
             "lop_hoc": "FE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "006",
@@ -2248,13 +2248,13 @@
             "id": "013",
             "ho_va_ten": "Bùi Văn M",
             "lop_hoc": "G001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "014",
             "ho_va_ten": "Đỗ Thị N",
             "lop_hoc": "BE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "015",
@@ -2314,7 +2314,7 @@
             "id": "024",
             "ho_va_ten": "Lê Hoàng Anh",
             "lop_hoc": "BE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "025",
@@ -2326,25 +2326,25 @@
             "id": "026",
             "ho_va_ten": "Vũ Đức Thành",
             "lop_hoc": "FS001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "027",
             "ho_va_ten": "Ngô Thanh Tùng",
             "lop_hoc": "BE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "028",
             "ho_va_ten": "Bùi Thị Phương",
             "lop_hoc": "FE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "029",
             "ho_va_ten": "Hoàng Gia Bảo",
             "lop_hoc": "FS002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "030",
@@ -2368,13 +2368,13 @@
             "id": "033",
             "ho_va_ten": "Lê Thùy Linh",
             "lop_hoc": "FS001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "034",
             "ho_va_ten": "Phạm Hoàng Long",
             "lop_hoc": "FE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "035",
@@ -2392,7 +2392,7 @@
             "id": "037",
             "ho_va_ten": "Đỗ Thúy Quỳnh",
             "lop_hoc": "FE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "038",
@@ -2434,7 +2434,7 @@
             "id": "044",
             "ho_va_ten": "Lê Quốc Bảo",
             "lop_hoc": "FS002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "045",
@@ -2446,7 +2446,7 @@
             "id": "046",
             "ho_va_ten": "Đỗ Ngọc Anh",
             "lop_hoc": "FS002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "047",
@@ -2482,19 +2482,19 @@
             "id": "052",
             "ho_va_ten": "Nguyễn Hải Nam",
             "lop_hoc": "BE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "053",
             "ho_va_ten": "Trần Thanh Ngân",
             "lop_hoc": "FS002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "054",
             "ho_va_ten": "Nguyễn Văn An",
             "lop_hoc": "FE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "055",
@@ -2506,7 +2506,7 @@
             "id": "056",
             "ho_va_ten": "Phạm Quốc Huy",
             "lop_hoc": "FS001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "057",
@@ -2568,7 +2568,7 @@
             "id": "006",
             "ho_va_ten": "Mạc Thị F",
             "lop_hoc": "FS002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "007",
@@ -2586,7 +2586,7 @@
             "id": "009",
             "ho_va_ten": "Đào Văn I",
             "lop_hoc": "G002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "010",
@@ -2598,7 +2598,7 @@
             "id": "011",
             "ho_va_ten": "Phạm Văn K",
             "lop_hoc": "BE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "012",
@@ -2616,13 +2616,13 @@
             "id": "014",
             "ho_va_ten": "Đỗ Thị N",
             "lop_hoc": "BE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "015",
             "ho_va_ten": "Đinh Văn O",
             "lop_hoc": "FS001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "016",
@@ -2634,13 +2634,13 @@
             "id": "017",
             "ho_va_ten": "Nguyễn Thị Thu Nga",
             "lop_hoc": "G002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "018",
             "ho_va_ten": "Nguyễn Bùi Hải Nam",
             "lop_hoc": "BE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "019",
@@ -2658,7 +2658,7 @@
             "id": "021",
             "ho_va_ten": "Nguyễn Quốc Huy",
             "lop_hoc": "BE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "022",
@@ -2676,13 +2676,13 @@
             "id": "024",
             "ho_va_ten": "Lê Hoàng Anh",
             "lop_hoc": "BE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "025",
             "ho_va_ten": "Đỗ Minh Châu",
             "lop_hoc": "FE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "026",
@@ -2754,7 +2754,7 @@
             "id": "037",
             "ho_va_ten": "Đỗ Thúy Quỳnh",
             "lop_hoc": "FE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "038",
@@ -2802,7 +2802,7 @@
             "id": "045",
             "ho_va_ten": "Phạm Gia Hưng",
             "lop_hoc": "BE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "046",
@@ -2844,7 +2844,7 @@
             "id": "052",
             "ho_va_ten": "Nguyễn Hải Nam",
             "lop_hoc": "BE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "053",
@@ -2856,7 +2856,7 @@
             "id": "054",
             "ho_va_ten": "Nguyễn Văn An",
             "lop_hoc": "FE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "055",
@@ -2868,7 +2868,7 @@
             "id": "056",
             "ho_va_ten": "Phạm Quốc Huy",
             "lop_hoc": "FS001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "057",
@@ -2880,7 +2880,7 @@
             "id": "058",
             "ho_va_ten": "Hoàng Cửu Bảo",
             "lop_hoc": "BE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "059",
@@ -2892,7 +2892,7 @@
             "id": "060",
             "ho_va_ten": "Trịnh Đức Nam",
             "lop_hoc": "FE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         }
     ],
     "17/03/2026": [
@@ -2978,7 +2978,7 @@
             "id": "014",
             "ho_va_ten": "Đỗ Thị N",
             "lop_hoc": "BE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "015",
@@ -2990,7 +2990,7 @@
             "id": "016",
             "ho_va_ten": "Nguyễn Trần Thanh Ngân",
             "lop_hoc": "FE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "017",
@@ -3002,7 +3002,7 @@
             "id": "018",
             "ho_va_ten": "Nguyễn Bùi Hải Nam",
             "lop_hoc": "BE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "019",
@@ -3014,7 +3014,7 @@
             "id": "020",
             "ho_va_ten": "Đặng Trịnh Minh Ngọc",
             "lop_hoc": "FS002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "021",
@@ -3050,7 +3050,7 @@
             "id": "026",
             "ho_va_ten": "Vũ Đức Thành",
             "lop_hoc": "FS001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "027",
@@ -3086,7 +3086,7 @@
             "id": "032",
             "ho_va_ten": "Trần Minh Đức",
             "lop_hoc": "BE002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "033",
@@ -3134,7 +3134,7 @@
             "id": "040",
             "ho_va_ten": "Đặng Hồng Hạnh",
             "lop_hoc": "FE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "041",
@@ -3158,7 +3158,7 @@
             "id": "044",
             "ho_va_ten": "Lê Quốc Bảo",
             "lop_hoc": "FS002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "045",
@@ -3206,13 +3206,13 @@
             "id": "052",
             "ho_va_ten": "Nguyễn Hải Nam",
             "lop_hoc": "BE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "053",
             "ho_va_ten": "Trần Thanh Ngân",
             "lop_hoc": "FS002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "054",
@@ -3230,7 +3230,7 @@
             "id": "056",
             "ho_va_ten": "Phạm Quốc Huy",
             "lop_hoc": "FS001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "057",
@@ -3242,7 +3242,7 @@
             "id": "058",
             "ho_va_ten": "Hoàng Cửu Bảo",
             "lop_hoc": "BE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "059",
@@ -3298,13 +3298,13 @@
             "id": "007",
             "ho_va_ten": "Vũ Văn G",
             "lop_hoc": "BE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "008",
             "ho_va_ten": "Đỗ Thị H",
             "lop_hoc": "FE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "009",
@@ -3322,7 +3322,7 @@
             "id": "011",
             "ho_va_ten": "Phạm Văn K",
             "lop_hoc": "BE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "012",
@@ -3334,7 +3334,7 @@
             "id": "013",
             "ho_va_ten": "Bùi Văn M",
             "lop_hoc": "G001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "014",
@@ -3352,7 +3352,7 @@
             "id": "016",
             "ho_va_ten": "Nguyễn Trần Thanh Ngân",
             "lop_hoc": "FE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "017",
@@ -3418,19 +3418,19 @@
             "id": "027",
             "ho_va_ten": "Ngô Thanh Tùng",
             "lop_hoc": "BE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "028",
             "ho_va_ten": "Bùi Thị Phương",
             "lop_hoc": "FE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "029",
             "ho_va_ten": "Hoàng Gia Bảo",
             "lop_hoc": "FS002",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         },
         {
             "id": "030",
@@ -3460,7 +3460,7 @@
             "id": "034",
             "ho_va_ten": "Phạm Hoàng Long",
             "lop_hoc": "FE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "035",
@@ -3484,7 +3484,7 @@
             "id": "038",
             "ho_va_ten": "Ngô Tiến Đạt",
             "lop_hoc": "BE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "039",
@@ -3502,7 +3502,7 @@
             "id": "041",
             "ho_va_ten": "Phùng Thanh Độ",
             "lop_hoc": "FE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "042",
@@ -3544,13 +3544,13 @@
             "id": "048",
             "ho_va_ten": "Bùi Hải Yến",
             "lop_hoc": "FE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "049",
             "ho_va_ten": "Hoàng Đức Mạnh",
             "lop_hoc": "BE002",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "050",
@@ -3568,7 +3568,7 @@
             "id": "052",
             "ho_va_ten": "Nguyễn Hải Nam",
             "lop_hoc": "BE001",
-            "trang_thai": "Vắng"
+            "trang_thai": "Có mặt"
         },
         {
             "id": "053",
@@ -3616,7 +3616,7 @@
             "id": "060",
             "ho_va_ten": "Trịnh Đức Nam",
             "lop_hoc": "FE001",
-            "trang_thai": "Có mặt"
+            "trang_thai": "Vắng"
         }
     ]
 }
