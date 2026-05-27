@@ -129,7 +129,6 @@ def register():
     return redirect(url_for('login'))
 # ============================================================
 # STUDENTS — Danh sách, thêm, sửa
-# Xóa chỉ dành cho Admin
 # ============================================================
 @app.route('/students', methods=['GET', 'POST'])
 @login_required
