@@ -4,9 +4,9 @@
         "password": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
         "role": "admin",
         "ho_ten": "Quản trị viên",
-        "email": "",
-        "so_dien_thoai": "",
-        "dia_chi": ""
+        "email": "admin123@gmail.com",
+        "so_dien_thoai": "0868244750",
+        "dia_chi": "901 Giải Phóng, Tương Mai, Hà Nội"
     },
     {
         "username": "Trần Ánh",
@@ -15,7 +15,7 @@
         "ho_ten": "Trần Thị Ánh",
         "email": "trananh1963haiduong@gmail.com",
         "so_dien_thoai": "0988567993",
-        "dia_chi": ""
+        "dia_chi": "123 Đường ABC, Quận XYZ, TP. HCM"
     },
     {
         "username": "Trần Ngân Anh",
@@ -24,33 +24,33 @@
         "ho_ten": "Trần Thanh Ngân",
         "email": "tranngananh1963hd@gmail.com",
         "so_dien_thoai": "0868344759",
-        "dia_chi": ""
+        "dia_chi": "456 Đường DEF, Quận UVW, TP. HCM"
     },
     {
-    "username": "Vũ Dương",
-    "password": "9e736e8c47293ecbd2b339213ae65219f243005aab10715ba7d10295bb2976ce",
-    "role": "giaovien",
-    "ho_ten": "Vũ Tuấn Tùng Dương",
-    "email": "",
-    "so_den_thoai": "",
-    "dia_chi": ""
-  },
-  {
-    "username": "Rossy",
-    "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
-    "role": "nhanvien",
-    "ho_ten": "Nguyễn Thị Hồng Nhung",
-    "email": "",
-    "so_den_thoai": "",
-    "dia_chi": ""
-  },
-  {
-    "username": "Vmeow",
-    "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
-    "role": "nhanvien",
-    "ho_ten": "Nguyễn Thị Trà Vy",
-    "email": "",
-    "so_den_thoai": "",
-    "dia_chi": ""
-  }
+        "username": "Vũ Dương",
+        "password": "9e736e8c47293ecbd2b339213ae65219f243005aab10715ba7d10295bb2976ce",
+        "role": "giaovien",
+        "ho_ten": "Vũ Tuấn Tùng Dương",
+        "email": "tungduongvu062@gmail.com",
+        "so_den_thoai": "0378576048",
+        "dia_chi": "789 Đường GHI, Quận RST, TP. HCM"
+    },
+    {
+        "username": "Rossy",
+        "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+        "role": "nhanvien",
+        "ho_ten": "Nguyễn Thị Hồng Nhung",
+        "email": "hongnhungrossy123@gmail.com",
+        "so_den_thoai": "0987654879",
+        "dia_chi": "456 Đường DEF, Quận UVW, TP. HCM"
+    },
+    {
+        "username": "Vmeow",
+        "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+        "role": "nhanvien",
+        "ho_ten": "Nguyễn Thị Trà Vy",
+        "email": "travy123@gmail.com",
+        "so_den_thoai": "0987654399",
+        "dia_chi": "789 Đường GHI, Quận RST, TP. HCM"
+    }
 ]

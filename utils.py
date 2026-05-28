@@ -26,4 +26,3 @@ def evaluate_academic_warning(student_id, absences):
         nh['canh_bao'] = "Không"
 
     DataEngine.write_file(ds_nguoi_hoc) 
-

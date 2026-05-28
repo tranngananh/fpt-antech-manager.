@@ -240,16 +240,30 @@ def attendance():
                 flash(msg, 'success' if success else 'danger')
                 return redirect(url_for('attendance'))
 
-        # --- Lưu điểm danh ---
+# --- Lưu điểm danh ---
         if action == 'save_attendance':
-            # Cập nhật trạng thái từng ô trong bảng
+            # Cập nhật trạng thái từng ô trong bảng DỰA TRÊN DANH SÁCH HỌC VIÊN HIỆN TẠI
             for ngay in danh_sach_ngay:
-                records = diem_danh.get(ngay, [])
-                for rec in records:
-                    s_id = rec['id']
+                new_records = []
+                
+                # Quét qua toàn bộ học sinh để lấy dữ liệu từ Form
+                for hs in ds_nguoi_hoc:
+                    s_id = hs['id']
+                    
                     # Checkbox được tick → Có mặt, không tick → Vắng
-                    checked      = request.form.get(f'dd_{ngay}_{s_id}')
-                    rec['trang_thai'] = "Có mặt" if checked else "Vắng"
+                    checked = request.form.get(f'dd_{ngay}_{s_id}')
+                    trang_thai = "Có mặt" if checked else "Vắng"
+                    
+                    # Cập nhật hoặc thêm mới bản ghi cho ngày này
+                    new_records.append({
+                        "id": s_id,
+                        "ho_va_ten": hs['ho_va_ten'],
+                        "lop_hoc": hs.get('lop_hoc', '-'),
+                        "trang_thai": trang_thai
+                    })
+                
+                # Ghi đè lại dữ liệu của ngày đó cho hoàn chỉnh
+                diem_danh[ngay] = new_records
 
             DiemDanhModel.save_all(diem_danh)
 
@@ -314,12 +328,8 @@ def reports():
                            tk_khoa_hoc=thong_ke_khoa_hoc,
                            tk_gioi_tinh=thong_ke_gioi_tinh)
 
-
 # ============================================================
-# SETTINGS — Chỉ Admin
-# ============================================================
-# SETTINGS — Chỉ Admin
-# Quản lý tài khoản + đổi mật khẩu
+# SETTINGS — Quản lý tài khoản + đổi mật khẩu (Đã nâng cấp bảo mật)
 # ============================================================
 @app.route('/settings', methods=['GET', 'POST'])
 def settings():
@@ -333,26 +343,48 @@ def settings():
     if request.method == 'POST':
         action = request.form.get('action', 'update_profile')
 
-        # 1. CẬP NHẬT THÔNG TIN CÁ NHÂN
+        # 1. CẬP NHẬT THÔNG TIN CÁ NHÂN VÀ ĐỔI MẬT KHẨU
         if action == 'update_profile':
             ho_ten_moi  = request.form.get('ho_ten', '').strip()
             email_moi   = request.form.get('email', '').strip()
             sdt_moi     = request.form.get('so_dien_thoai', '').strip()
             dia_chi_moi = request.form.get('dia_chi', '').strip()
-            mk_moi      = request.form.get('new_password', '').strip()
+            
+            # Các biến phục vụ việc đổi mật khẩu bảo mật
+            current_password = request.form.get('current_password', '').strip()
+            new_password     = request.form.get('new_password', '').strip()
 
             for u in users:
                 if u['username'] == current_username:
+                    
+                    # NẾU CÓ YÊU CẦU ĐỔI MẬT KHẨU
+                    if new_password:
+                        # 1. Kiểm tra mật khẩu hiện tại (nhập từ form) có khớp với mật khẩu đang lưu (đã mã hóa) không
+                        # Gọi hàm UserModel.authenticate (hoặc logic kiểm tra mã hóa) để xác minh
+                        # Lưu ý: UserModel._hash là cách bạn mã hóa khi tạo user, 
+                        # nên ta sẽ hash mật khẩu gửi lên để so sánh với cái đã lưu.
+                        if UserModel._hash(current_password) != u['password']:
+                            flash("❌ Thất bại: Mật khẩu hiện tại không chính xác!", "danger")
+                            return redirect(url_for('settings'))
+                        
+                        # 2. Nếu mật khẩu cũ đúng -> Cập nhật mật khẩu mới
+                        u['password'] = UserModel._hash(new_password)
+                        flash("✅ Đã cập nhật thông tin và đổi mật khẩu thành công!", "success")
+                    else:
+                        flash("✅ Cập nhật thông tin cá nhân thành công!", "success")
+                    
+                    # Cập nhật các thông tin cơ bản
                     u['ho_ten']        = ho_ten_moi
                     u['email']         = email_moi
                     u['so_dien_thoai'] = sdt_moi
                     u['dia_chi']       = dia_chi_moi
-                    if mk_moi:
-                        u['password'] = UserModel._hash(mk_moi)
+                    
+                    # Cập nhật session hiển thị
                     session['ho_ten'] = ho_ten_moi
                     break
+            
+            # Lưu lại xuống file JSON
             UserModel._save(users)
-            flash("✅ Cập nhật thông tin cá nhân thành công!", "success")
 
         # 2. TỰ XÓA TÀI KHOẢN
         elif action == 'delete_self':

@@ -18,7 +18,6 @@
 
 <div class="row g-4">
 
-    <!-- ============ CỘT TRÁI: HỒ SƠ CÁ NHÂN ============ -->
     <div class="col-xl-4 col-lg-5">
         <div class="card shadow-sm border-0 h-100" style="border-radius: 12px;">
             <div class="card-header bg-dark text-white fw-bold" style="border-radius: 12px 12px 0 0;">
@@ -71,7 +70,6 @@
         </div>
     </div>
 
-    <!-- ============ CỘT PHẢI: QUẢN LÝ TÀI KHOẢN (ADMIN) ============ -->
     {% if session.get('role') == 'admin' %}
     <div class="col-xl-8 col-lg-7">
         <div class="card shadow-sm border-0 h-100" style="border-radius: 12px;">
@@ -149,7 +147,6 @@
 </div>
 
 
-<!-- ============ MODAL: CẬP NHẬT HỒ SƠ CÁ NHÂN ============ -->
 <div class="modal fade" id="updateProfileModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content border-0 shadow">
@@ -159,7 +156,7 @@
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
-            <form action="{{ url_for('settings') }}" method="POST">
+            <form action="{{ url_for('settings') }}" method="POST" onsubmit="return validateProfileForm()">
                 <input type="hidden" name="action" value="update_profile">
                 <div class="modal-body">
                     <div class="mb-3">
@@ -185,16 +182,32 @@
                                value="{{ user_info.get('dia_chi', '') }}"
                                placeholder="Số nhà, đường, quận, tỉnh...">
                     </div>
+                    
                     <hr>
                     <p class="text-muted small mb-2">
                         <i class="fa-solid fa-triangle-exclamation text-warning me-1"></i>
-                        Bỏ trống nếu không muốn đổi mật khẩu
+                        Bỏ trống khu vực dưới đây nếu không muốn đổi mật khẩu
                     </p>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Mật khẩu hiện tại</label>
+                        <input type="password" id="current_password" name="current_password" class="form-control"
+                               placeholder="Nhập mật khẩu hiện tại...">
+                    </div>
                     <div class="mb-3">
                         <label class="form-label fw-bold">Mật khẩu mới</label>
-                        <input type="password" name="new_password" class="form-control"
+                        <input type="password" id="new_password" name="new_password" class="form-control"
                                placeholder="Nhập mật khẩu mới...">
                     </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Xác nhận mật khẩu mới</label>
+                        <input type="password" id="confirm_password" name="confirm_password" class="form-control"
+                               placeholder="Nhập lại mật khẩu mới...">
+                        <div id="password_error" class="text-danger small mt-1 d-none">
+                            <i class="fa-solid fa-circle-xmark me-1"></i>Mật khẩu xác nhận không khớp!
+                        </div>
+                    </div>
+
                 </div>
                 <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
@@ -208,7 +221,6 @@
 </div>
 
 
-<!-- ============ MODAL: THÊM TÀI KHOẢN MỚI (ADMIN) ============ -->
 {% if session.get('role') == 'admin' %}
 <div class="modal fade" id="addUserModal" tabindex="-1">
     <div class="modal-dialog">
@@ -271,7 +283,6 @@
 </div>
 
 
-<!-- ============ MODAL: RESET MẬT KHẨU (ADMIN) ============ -->
 <div class="modal fade" id="resetPassModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content border-0 shadow">
@@ -301,14 +312,41 @@
     </div>
 </div>
 
+{% endif %}
+
 <script>
+// Logic kiểm tra mật khẩu trước khi submit
+function validateProfileForm() {
+    const currentPass = document.getElementById('current_password').value;
+    const newPass = document.getElementById('new_password').value;
+    const confirmPass = document.getElementById('confirm_password').value;
+    const errorDiv = document.getElementById('password_error');
+
+    if (newPass !== "" || confirmPass !== "") {
+        if (currentPass === "") {
+            alert("Vui lòng nhập Mật khẩu hiện tại để xác thực việc đổi mật khẩu!");
+            document.getElementById('current_password').focus();
+            return false;
+        }
+        if (newPass !== confirmPass) {
+            errorDiv.classList.remove('d-none');
+            document.getElementById('confirm_password').focus();
+            return false;
+        }
+    }
+    
+    errorDiv.classList.add('d-none');
+    return true;
+}
+
+// Logic cho nút Reset mật khẩu (chỉ Admin mới có)
+{% if session.get('role') == 'admin' %}
 document.getElementById('resetPassModal').addEventListener('show.bs.modal', function(e) {
     const username = e.relatedTarget.getAttribute('data-username');
     document.getElementById('resetTarget').value      = username;
     document.getElementById('resetLabel').textContent = username;
 });
-</script>
-
 {% endif %}
+</script>
 
 {% endblock %}
