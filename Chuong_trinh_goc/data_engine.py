@@ -4,14 +4,19 @@ import os
 # ==========================================
 # CẤU HÌNH ĐƯỜNG DẪN FILE DỮ LIỆU
 # ==========================================
-DATA_DIR = './data'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+DATA_DIR = os.path.join(BASE_DIR, 'data')
 NGUOI_HOC_FILE = os.path.join(DATA_DIR, 'nguoi_hoc.json')
-DIEM_DANH_FILE = os.path.join(DATA_DIR, 'diem_danh.json')
+
+# 👇 ĐỔI TÊN FILE Ở DÒNG NÀY 👇
+DIEM_DANH_FILE = os.path.join(DATA_DIR, 'diem_danh_theo_ngay.json') 
 
 # ==========================================
 # LÕI XỬ LÝ ĐỌC / GHI FILE JSON (DATA ENGINE)
 # ==========================================
 class DataEngine:
+    # ... (Giữ nguyên toàn bộ code bên dưới của bạn) ...
     @staticmethod
     def initialize_db():
         """

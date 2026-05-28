@@ -25,7 +25,6 @@ def hien_thi_menu():
     print("  5. Cài đặt (Hồ sơ cá nhân & Admin)              ")
     print("  0. Thoát chương trình                           ")
     print("==================================================")
-
 def main():
     # 1. Luôn kiểm tra và khởi tạo file JSON (Database) nếu chưa có khi vừa mở app
     DataEngine.initialize_db()

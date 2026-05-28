@@ -2,10 +2,13 @@
 import json
 import os
 import hashlib
+import re
+from datetime import datetime
 from config import Config
 
-
+# ============================================================
 # DATA ENGINE — đọc/ghi file JSON gốc
+# ============================================================
 class DataEngine:
     @staticmethod
     def initialize_db():
@@ -76,7 +79,7 @@ class DataEngine:
             vang = target['so_ngay_vang']
             if vang >= 5:
                 target['canh_bao'] = "Cảnh báo nghỉ học"
-            elif 5> vang >= 3:
+            elif 5 > vang >= 3:
                 target['canh_bao'] = "Cảnh báo học tập"
             else:
                 target['canh_bao'] = "Không"
@@ -93,7 +96,7 @@ class DataEngine:
 
 
 # ============================================================
-# NGUOI HOC MODEL — nghiệp vụ học viên
+# NGUOI HOC MODEL — nghiệp vụ học viên (ĐÃ NÂNG CẤP ĐỒNG BỘ CONSOLE)
 # ============================================================
 class NguoiHocModel:
     @staticmethod
@@ -106,14 +109,37 @@ class NguoiHocModel:
         return next((s for s in data if s['id'] == student_id), None)
 
     @staticmethod
-    def create(data):
+    def create(data, trang_thai_mac_dinh="Chưa nhập học"):
+        # 1. Bắt buộc nhập
         bat_buoc = ['ho_va_ten', 'so_dien_thoai', 'gioi_tinh', 'khoa_hoc']
         if any(not data.get(f) for f in bat_buoc):
             return False, "⚠️ Không được bỏ trống Họ tên, SĐT, Giới tính, Khóa học!"
 
         ds = DataEngine.read_file()
-        if any(nh['so_dien_thoai'] == data['so_dien_thoai'] for nh in ds):
-            return False, "❌ Số điện thoại này đã tồn tại!"
+        
+        # 2. Validate Số điện thoại (10 số, không trùng)
+        sdt = data.get('so_dien_thoai', '').strip()
+        if not (sdt.isdigit() and len(sdt) == 10):
+            return False, "❌ Số điện thoại không hợp lệ! Bắt buộc phải là 10 chữ số."
+        if any(nh.get('so_dien_thoai') == sdt for nh in ds):
+            return False, "❌ Số điện thoại này đã tồn tại trong hệ thống!"
+
+        # 3. Validate Email
+        email = data.get('email', '').strip()
+        if email and email != '-':
+            email_regex = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+            if not re.match(email_regex, email):
+                return False, "❌ Email không đúng định dạng (VD: tenban@gmail.com)!"
+            if any(nh.get('email') == email for nh in ds if nh.get('email') != '-'):
+                return False, "❌ Email này đã được đăng ký cho học viên khác!"
+
+        # 4. Validate Ngày sinh
+        ngay_sinh = data.get('ngay_sinh', '').strip()
+        if ngay_sinh and ngay_sinh != '-':
+            try:
+                datetime.strptime(ngay_sinh, "%d/%m/%Y")
+            except ValueError:
+                return False, "❌ Ngày tháng không hợp lệ! Vui lòng nhập định dạng dd/mm/yyyy."
 
         next_id = "001"
         if ds:
@@ -123,11 +149,11 @@ class NguoiHocModel:
         new_student = {
             "id":            next_id,
             "ho_va_ten":     data['ho_va_ten'],
-            "so_dien_thoai": data['so_dien_thoai'],
+            "so_dien_thoai": sdt,
             "dan_toc":       data.get('dan_toc', 'Kinh'),
             "gioi_tinh":     data['gioi_tinh'],
-            "ngay_sinh":     data.get('ngay_sinh', '-'),
-            "email":         data.get('email', '-'),
+            "ngay_sinh":     ngay_sinh if ngay_sinh else '-',
+            "email":         email if email else '-',
             "dia_chi":       data.get('dia_chi', '-'),
             "khoa_hoc":      data['khoa_hoc'],
             "lop_hoc":       data.get('lop_hoc', '-'),
@@ -136,6 +162,19 @@ class NguoiHocModel:
         }
         ds.append(new_student)
         DataEngine.write_file(ds)
+
+        # 5. ĐỒNG BỘ: Chèn ngay học viên này vào tất cả các ngày điểm danh cũ
+        diem_danh = DiemDanhModel.get_all()
+        for ngay, records in diem_danh.items():
+            if not any(str(rec.get('id')) == str(next_id) for rec in records):
+                records.append({
+                    "id": next_id,
+                    "ho_va_ten": new_student['ho_va_ten'],
+                    "lop_hoc": new_student['lop_hoc'],
+                    "trang_thai": trang_thai_mac_dinh
+                })
+        DiemDanhModel.save_all(diem_danh)
+
         return True, f"✅ Đã thêm học viên thành công! Mã ID: {next_id}"
 
     @staticmethod
@@ -145,8 +184,35 @@ class NguoiHocModel:
         if not nh:
             return False, "❌ Không tìm thấy học viên."
 
-        for key in ['ho_va_ten', 'so_dien_thoai', 'gioi_tinh', 'dan_toc',
-                    'ngay_sinh', 'email', 'dia_chi', 'khoa_hoc', 'lop_hoc']:
+        # Validate SĐT khi cập nhật
+        sdt_moi = new_data.get('so_dien_thoai', '').strip()
+        if sdt_moi:
+            if not (sdt_moi.isdigit() and len(sdt_moi) == 10):
+                return False, "❌ Số điện thoại phải gồm đúng 10 chữ số!"
+            if any(s.get('so_dien_thoai') == sdt_moi and str(s.get('id')) != str(student_id) for s in ds):
+                return False, "❌ Số điện thoại này đã được sử dụng bởi người khác!"
+            nh['so_dien_thoai'] = sdt_moi
+
+        # Validate Email khi cập nhật
+        email_moi = new_data.get('email', '').strip()
+        if email_moi and email_moi != '-':
+            email_regex = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+            if not re.match(email_regex, email_moi):
+                return False, "❌ Email không đúng định dạng!"
+            if any(s.get('email') == email_moi and str(s.get('id')) != str(student_id) for s in ds if s.get('email') != '-'):
+                return False, "❌ Email này đã được đăng ký bởi người khác!"
+            nh['email'] = email_moi
+
+        # Validate Ngày sinh khi cập nhật
+        ns_moi = new_data.get('ngay_sinh', '').strip()
+        if ns_moi and ns_moi != '-':
+            try:
+                datetime.strptime(ns_moi, "%d/%m/%Y")
+                nh['ngay_sinh'] = ns_moi
+            except ValueError:
+                return False, "❌ Ngày tháng không hợp lệ (dd/mm/yyyy)!"
+
+        for key in ['ho_va_ten', 'gioi_tinh', 'dan_toc', 'dia_chi', 'khoa_hoc', 'lop_hoc']:
             if key in new_data and new_data[key]:
                 nh[key] = new_data[key]
 
@@ -187,7 +253,6 @@ class DiemDanhModel:
 
     @staticmethod
     def add_day(ngay_moi, ds_nguoi_hoc):
-        """Thêm cột ngày mới — mặc định tất cả Vắng"""
         data = DiemDanhModel.get_all()
         if ngay_moi in data:
             return False, "⚠️ Ngày này đã tồn tại!"
@@ -205,7 +270,6 @@ class DiemDanhModel:
 
     @staticmethod
     def delete_day(ngay):
-        """Xóa cột ngày"""
         data = DiemDanhModel.get_all()
         if ngay not in data:
             return False, "❌ Ngày không tồn tại!"
@@ -215,7 +279,6 @@ class DiemDanhModel:
 
     @staticmethod
     def sync_to_nguoi_hoc():
-        """Tính lại so_ngay_vang và canh_bao cho tất cả học viên"""
         diem_danh    = DiemDanhModel.get_all()
         danh_sach_ngay = sorted(diem_danh.keys())
         ds           = DataEngine.read_file()
@@ -238,7 +301,9 @@ class DiemDanhModel:
         DataEngine.write_file(ds)
 
 
+# ============================================================
 # USER MODEL — tài khoản đăng nhập
+# ============================================================
 class UserModel:
     USERS_FILE = os.path.join(Config.DATA_DIR, 'users.json')
 
@@ -248,7 +313,6 @@ class UserModel:
 
     @classmethod
     def initialize(cls):
-        """Tạo file users.json với admin mặc định nếu chưa có"""
         if not os.path.exists(cls.USERS_FILE) or os.stat(cls.USERS_FILE).st_size == 0:
             default = [
                 {
@@ -256,9 +320,9 @@ class UserModel:
                     "password":      cls._hash("admin123"),
                     "role":          "admin",
                     "ho_ten":        "Quản trị viên",
-                    "email":         "",  # ← thêm
-                    "so_dien_thoai": "",  # ← thêm
-                    "dia_chi":       "",  # ← thêm
+                    "email":         "",
+                    "so_dien_thoai": "",
+                    "dia_chi":       "",
                 }
             ]
             with open(cls.USERS_FILE, 'w', encoding='utf-8') as f:
@@ -289,9 +353,9 @@ class UserModel:
             and u['password'] == hashed),
             None
         )
+
     @classmethod
-    def create(cls, username, password, role='staff', ho_ten='',
-               email='', so_dien_thoai='', dia_chi=''):          # ← thêm
+    def create(cls, username, password, role='staff', ho_ten='', email='', so_dien_thoai='', dia_chi=''):
         if not username or not password:
             return False, "⚠️ Không được để trống tên đăng nhập và mật khẩu!"
         users = cls._read()
@@ -302,9 +366,9 @@ class UserModel:
             "password":      cls._hash(password),
             "role":          role,
             "ho_ten":        ho_ten,
-            "email":         email,         # ← thêm
-            "so_dien_thoai": so_dien_thoai, # ← thêm
-            "dia_chi":       dia_chi,       # ← thêm
+            "email":         email,
+            "so_dien_thoai": so_dien_thoai,
+            "dia_chi":       dia_chi,
         })
         cls._save(users)
         return True, f"✅ Đã tạo tài khoản {username} ({role})!"
@@ -329,7 +393,6 @@ class UserModel:
         filtered = [u for u in users if u['username'] != username]
         if len(filtered) == len(users):
             return False, "❌ Không tìm thấy tài khoản!"
-        # Không cho xóa hết admin
         if not any(u['role'] == 'admin' for u in filtered):
             return False, "❌ Phải giữ lại ít nhất 1 tài khoản admin!"
         cls._save(filtered)
